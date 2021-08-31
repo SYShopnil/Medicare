@@ -1,0 +1,18 @@
+.create-admin {
+  margin: 50px auto;
+}
+
+form {
+  margin: 40px auto;
+}
+::-webkit-input-placeholder {
+  color: #fff;
+}
+label {
+  font-weight: bold;
+}
+
+h1.text-light.bg-success.text-center {
+  width: 50%;
+  margin: 0px auto;
+}
