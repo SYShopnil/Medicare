@@ -12,7 +12,7 @@ const AddAdmin = () => {
     console.log(file.size);
     setImage(file);
   };
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, e) => {
     const postAdmin = {
       personalInfo: {
         firstName: data.firstName,
@@ -32,6 +32,7 @@ const AddAdmin = () => {
 
     const response = await axios.post(`${baseUrl}/admin/create`, postAdmin);
     console.log(response);
+    e.target.reset();
   };
   return (
     <div className="create-admin p-3 bg-grey">

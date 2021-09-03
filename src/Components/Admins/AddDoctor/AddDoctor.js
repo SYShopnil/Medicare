@@ -27,7 +27,7 @@ const AddDoctor = () => {
     console.log(file.size);
     setImage(file);
   };
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, e) => {
     const postDoctor = {
       personalInfo: {
         firstName: data.firstName,
@@ -56,6 +56,7 @@ const AddDoctor = () => {
     console.log(postDoctor);
     const response = await axios.post(`${baseUrl}/doctor/create`, postDoctor);
     console.log(response);
+    e.target.reset();
   };
   return (
     <div className="text-center mt-5 p-5">

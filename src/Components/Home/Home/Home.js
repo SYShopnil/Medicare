@@ -2,6 +2,7 @@ import React from "react";
 import Banner from "../../../images/banner.jpg";
 import Header from "../Header/Header";
 import Navbar from "../Navber/Navber";
+import Service from "../Services/Service";
 import "./Home.css";
 
 const Home = () => {
@@ -19,6 +20,7 @@ const Home = () => {
       >
         <Header></Header>
       </div>
+      <Service></Service>
     </div>
   );
 };

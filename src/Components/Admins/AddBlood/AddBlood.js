@@ -1,10 +1,15 @@
 import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { baseUrl } from "../../../utils/baseUrl/baseurl";
 import "./AddBlood.css";
+import AllBlood from "./AllBlood";
 
 const AddBlood = () => {
   const { register, handleSubmit } = useForm();
+  const [isChange, setIsChange] = useState(false);
+  const header = useSelector((state) => state.login.headers);
   const onSubmit = async (data, e) => {
     const bloodData = {
       stockInfo: {
@@ -14,9 +19,12 @@ const AddBlood = () => {
     };
     const response = await axios.post(
       `${baseUrl}/bloodBankService/create`,
-      bloodData
+      bloodData,
+      header
     );
-
+    if (response.status === 202 || response.status === 201) {
+      setIsChange(!isChange);
+    }
     console.log(response);
     e.target.reset();
   };
@@ -50,6 +58,7 @@ const AddBlood = () => {
           <button class="btn btn-success">Submit</button>
         </form>
       </div>
+      <AllBlood isChange={isChange}></AllBlood>
     </div>
   );
 };

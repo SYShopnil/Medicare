@@ -1,18 +1,25 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { baseUrl } from "../../../utils/baseUrl/baseurl";
+import Oxygen from "./Oxygen";
 
 const AddOxygen = () => {
   const { register, handleSubmit } = useForm();
+  const [isChange, setIsChange] = useState(false);
+
   const onSubmit = async (data, e) => {
     const oxygenData = {
       amount: data.amount,
     };
+
     const response = await axios.post(
       `${baseUrl}/oxygenCylinder/create`,
       oxygenData
     );
+    if (response.status === 201 || response.status === 202) {
+      setIsChange(!isChange);
+    }
     console.log(response);
     e.target.reset();
   };
@@ -34,8 +41,15 @@ const AddOxygen = () => {
             ></input>
           </div>
 
-          <button class="btn btn-success">Submit</button>
+          <button class="btn btn-warning text-light">Submit</button>
         </form>
+      </div>
+
+      <div className="col-md-12 text-center">
+        <h1 className="text-light bg-success w-50 text-center mb-5">
+          oxygen amount
+        </h1>
+        <Oxygen isChange={isChange}></Oxygen>
       </div>
     </div>
   );
