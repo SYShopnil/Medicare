@@ -1,0 +1,12 @@
+h1.doctor-title.text-white.bg-primary.w-50 {
+  margin: 0px auto;
+}
+.mb-3.eye {
+  position: relative;
+}
+
+i.fas.fa-eye {
+  position: absolute;
+  top: 24%;
+  right: 3%;
+}
