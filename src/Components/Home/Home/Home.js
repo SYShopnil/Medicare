@@ -1,8 +1,8 @@
 import React from "react";
 import Banner from "../../../images/banner.jpg";
+import Service from "../AllServices/Service";
 import Header from "../Header/Header";
 import Navbar from "../Navber/Navber";
-import Service from "../Services/Service";
 import "./Home.css";
 
 const Home = () => {

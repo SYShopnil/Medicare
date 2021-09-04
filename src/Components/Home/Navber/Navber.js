@@ -32,6 +32,45 @@ const Navbar = () => {
           <div className="collapse navbar-collapse " id="navbarNav">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
+                <Link className="nav-link" to="/appoinments">
+                  Appoinments
+                </Link>
+              </li>
+              {/* services section  */}
+              <li class="nav-item dropdown">
+                <Link
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDarkDropdownMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Our services
+                </Link>
+                <ul
+                  class="dropdown-menu dropdown-menu-dark"
+                  aria-labelledby="navbarDarkDropdownMenuLink"
+                >
+                  <li>
+                    <Link class="dropdown-item" to="bloodBank">
+                      Blood Bank
+                    </Link>
+                  </li>
+                  <li>
+                    <Link class="dropdown-item" to="/oxygenService">
+                      Oxygen Service
+                    </Link>
+                  </li>
+                  <li>
+                    <Link class="dropdown-item" to="/ambulanceService">
+                      Ambulance Service
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              {/* doctor link  */}
+              <li className="nav-item">
                 <Link className="nav-link" to="/doctor">
                   Doctor
                 </Link>

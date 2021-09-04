@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Ambulance from "../../../images/Ambulance.png";
 import BloodBank from "../../../images/bloodBank.jpg";
 import Doctor from "../../../images/Doctor.jpg";
@@ -49,9 +48,9 @@ const Service = () => {
                   Some quick example text to build on the card title and make up
                   the bulk of the card's content.
                 </p>
-                <Link href="#" class="text-dark btn btn-outline-info">
+                {/* <Link to='/' class="text-dark btn btn-outline-info">
                   Go somewhere
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
