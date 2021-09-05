@@ -53,10 +53,10 @@ function App({ checkLogin, loginInfo, loadUserSuccess, loadUserFailed }) {
           <Route exact path="/login">
             <Login></Login>
           </Route>
-          <Route exact path="/doctor">
+          <Route  path="/doctor">
             <Doctor></Doctor>
           </Route>
-          <Route exact path="/admin">
+          <Route  path="/admin">
             <Admin></Admin>
           </Route>
           <Route exact path="/patientPanel">

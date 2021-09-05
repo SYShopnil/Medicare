@@ -58,7 +58,7 @@ const AddBlood = () => {
           <button class="btn btn-success">Submit</button>
         </form>
       </div>
-      <AllBlood isChange={isChange}></AllBlood>
+      <AllBlood isChange={isChange} setIsChange = {setIsChange}></AllBlood>
     </div>
   );
 };

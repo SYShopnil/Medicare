@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { baseUrl } from "../../../utils/baseUrl/baseurl";
 import ImageUploader from "../../../utils/singleImageUploader/ImageUploader";
+import {useRouteMatch, useLocation} from 'react-router-dom'
 import "./AddAdmin.css";
 const AddAdmin = () => {
+  const a = useLocation()
+  console.log(a) 
   const { register, handleSubmit } = useForm();
   // console.log(register);
   const [image, setImage] = useState({});
