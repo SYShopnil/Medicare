@@ -3,21 +3,30 @@ import React, { useEffect, useState } from "react";
 import { baseUrl } from "../../../utils/baseUrl/baseurl";
 
 const Oxygen = ({ isChange }) => {
-  const [amount, setAmount] = useState({});
+  const [amount, setAmount] = useState(false);
   console.log(isChange);
 
   useEffect(() => {
     return (async () => {
       var getAllData = await axios.get(`${baseUrl}/oxygenCylinder/get/all`);
-      console.log(getAllData.data);
-      setAmount(getAllData.data.data);
+      if(getAllData.status == 202) {
+        console.log(getAllData.data);
+        setAmount(getAllData.data.data);
+      }else {
+        setAmount(false);
+      }
     })();
   }, [isChange]);
-
-  const allAmount = amount.amount;
+  console.log(amount)
   return (
     <div>
-      <h1 className="bg-danger p-3 text-white ">{allAmount} Litre Available</h1>
+      {
+        !amount 
+        ?
+        <h1 className="bg-danger p-3 text-white ">No oxygen service has been found</h1>
+         :
+        <h1 className="bg-danger p-3 text-white ">{amount.amount} Litre Available</h1>
+      }
     </div>
   );
 };
