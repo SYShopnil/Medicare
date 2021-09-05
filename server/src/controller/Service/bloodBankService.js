@@ -13,13 +13,16 @@ const createBloodBankServiceController = async (req, res) => {
     } else {
       const { bloodGroup, availableAmount } = req.body.stockInfo; //get the blood group from body
       const isExistBloodGroup = await BloodBankService.find({
-        "stockInfo.bloodGroup": bloodGroup,
-        "others.isDelete": false,
-        "others.isActive": true,
+        "stockInfo.bloodGroup": bloodGroup.toUpperCase(),
+        // "others.isDelete": false,
+        // "others.isActive": true,
       }); //check that if blood bank exist or not create
       if (isExistBloodGroup.length == 0) {
         //if the blood bank service dont exist then it will execute
-        const newBloodBankService = new BloodBankService(req.body); //create a instance of blood bank service schema
+        const newBloodBankService = new BloodBankService({
+          ...req.body,
+          "stockInfo.bloodGroup": bloodGroup.toUpperCase()
+        }); //create a instance of blood bank service schema
         const saveBloodBankService = await newBloodBankService.save(); //save the new blood bank service schema
         if (saveBloodBankService) {
           res.status(201).json({
@@ -32,30 +35,58 @@ const createBloodBankServiceController = async (req, res) => {
           });
         }
       } else {
-        const updateBloodBankServiceInfo = await BloodBankService.updateOne(
-          {
-            "stockInfo.bloodGroup": bloodGroup,
-            "others.isDelete": false,
-            "others.isActive": true,
-          }, //query
-          {
-            $inc: {
-              "stockInfo.availableAmount": availableAmount,
-            },
-            $currentDate: {
-              "modificationInfo.updatedAt": true,
-            },
-          }, //update
-          { multi: true } //option
-        ); //update the blood bank info
-        if (updateBloodBankServiceInfo.nModified != 0) {
-          res.status(202).json({
-            message: "Blood Bank service Update successfully",
-          });
-        } else {
-          res.json({
-            message: "Blood Bank service update failed",
-          });
+        if (isExistBloodGroup[0].others.isDelete == true ) { //if the exist blood group is deleted already then it will execute 
+          const updateBloodBankServiceInfo = await BloodBankService.updateOne(
+            {
+              "stockInfo.bloodGroup": bloodGroup.toUpperCase()
+            }, //query
+            {
+              $set: {
+                "stockInfo.availableAmount": availableAmount,
+                "others.isDelete": false,
+                "others.isActive": true,
+              },
+              $currentDate: {
+                "modificationInfo.updatedAt": true,
+              },
+            }, //update
+            { multi: true } //option
+          ); //update the blood bank info
+          if (updateBloodBankServiceInfo.nModified != 0) {
+            res.status(202).json({
+              message: "Blood Bank service Update successfully",
+            });
+          } else {
+            res.json({
+              message: "Blood Bank service update failed",
+            });
+          }
+        }else {
+          const updateBloodBankServiceInfo = await BloodBankService.updateOne(
+            {
+              "stockInfo.bloodGroup": bloodGroup.toUpperCase(),
+              "others.isDelete": false,
+              "others.isActive": true,
+            }, //query
+            {
+              $inc: {
+                "stockInfo.availableAmount": availableAmount,
+              },
+              $currentDate: {
+                "modificationInfo.updatedAt": true,
+              },
+            }, //update
+            { multi: true } //option
+          ); //update the blood bank info
+          if (updateBloodBankServiceInfo.nModified != 0) {
+            res.status(202).json({
+              message: "Blood Bank service Update successfully",
+            });
+          } else {
+            res.json({
+              message: "Blood Bank service update failed",
+            });
+          }
         }
       }
     }
@@ -80,9 +111,10 @@ const updateBloodBankServiceByIdController = async (req, res) => {
           "others.isActive": true,
         }, //query
         {
-          $inc: {
-            "stockInfo.availableAmount": req.body.stockInfo.availableAmount,
-          },
+          // $inc: {
+          //   "stockInfo.availableAmount": req.body.stockInfo.availableAmount,
+          // },
+          $set: req.body,
           $currentDate: {
             "modificationInfo.updatedAt": true,
           },

@@ -4,7 +4,7 @@ import { BsPersonCheckFill, BsPersonFill } from "react-icons/bs";
 import { FaAmbulance, FaNotesMedical } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-const AdminNav = () => {
+const AdminNav = ({pathUrl}) => {
   return (
     <div className="text-center" style={{ height: "300vh" }}>
       <h1 className="mb-3 text-white">
@@ -12,43 +12,43 @@ const AdminNav = () => {
       </h1>
       <ul className="navbar-nav ms-auto">
         <li className="nav-item mb-2">
-          <Link className="nav-link" to="/addAdmin">
+          <Link className="nav-link" to= {`${pathUrl}/addAdmin`}>
             <RiAdminFill className="link" />
             <p className="item">Add Admin</p>
           </Link>
         </li>
         <li className="nav-item mb-2">
-          <Link className="nav-link" to="/addDoctor">
+          <Link className="nav-link" to= {`${pathUrl}/addDoctor`}>
             <FaNotesMedical className="link" />
             <p className="item">Add Doctor</p>
           </Link>
         </li>
         <li className="nav-item mb-2">
-          <Link className="nav-link" to="/doctors">
+          <Link className="nav-link" to= {`${pathUrl}/doctors`}>
             <BsPersonCheckFill className="link" />
             <p className="item"> Doctors</p>
           </Link>
         </li>
         <li className="nav-item mb-2">
-          <Link className="nav-link" to="/patients">
+          <Link className="nav-link" to= {`${pathUrl}/patients`}>
             <BsPersonFill className="link" />
             <p className="item"> Patients</p>
           </Link>
         </li>
         <li className="nav-item mb-2">
-          <Link className="nav-link" to="/addAmbulance">
+          <Link className="nav-link" to= {`${pathUrl}/addAmbulance`}>
             <FaAmbulance className="link" />
             <p className="item">Ambulance Service</p>
           </Link>
         </li>
         <li className="nav-item mb-2">
-          <Link className="nav-link" to="/addBlood">
+          <Link className="nav-link" to= {`${pathUrl}/addBlood`}>
             <BiDonateBlood className="link" />
             <p className="item">Blood Bank</p>
           </Link>
         </li>
         <li className="nav-item mb-2">
-          <Link className="nav-link" to="/addOxygen">
+          <Link className="nav-link" to= {`${pathUrl}/addOxygen`}>
             <BiCylinder className="link" />
             <p className="item">Oxygen Service</p>
           </Link>
