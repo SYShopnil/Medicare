@@ -4,7 +4,6 @@ require('dotenv').config()
 const authenticationMiddleware = async (req, res, next) => {
     try {
         const token = req.header('Authorization') //get the token from headers
-        
         //get the dot env file data
         const securityCode = process.env.JWT_SECURE_CODE //ge the security code from dot env
         if(!token) {
