@@ -10,6 +10,7 @@ const {
   seeNextSevenAppointmentController,
   getThreeSpecialDoctorController,
   showDoctorByCategoryController,
+  getDoctorCategoryController
 } = require("../../controller/User/doctor");
 
 const authentication = require("../../../middleware/auth/authentication");
@@ -57,5 +58,6 @@ route.get(
 );
 route.get("/get/specialized", getThreeSpecialDoctorController);
 route.get("/get/by/category/:category", showDoctorByCategoryController);
+route.get("/get/all/category", getDoctorCategoryController)
 
 module.exports = route;
