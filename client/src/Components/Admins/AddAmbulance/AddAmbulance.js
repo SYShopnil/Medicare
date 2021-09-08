@@ -1,26 +1,36 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { baseUrl } from "../../../utils/baseUrl/baseurl";
 import "./AddAmbulance.css";
+import AllAmbulance from "./AllAmbulance.js/AllAmbulance";
 
 const AddAmbulance = () => {
+  const header = useSelector((state) => state.login.headers);
+  const [isChange, setIsChange] = useState(false);
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data, e) => {
+    // const contactNumber=
+    // console.log(data.contactNumber);
     const ambulanceData = {
       ambulanceInfo: {
         registrationNo: data.Registration,
       },
-      contactNumber: {
+      driverInfo: {
         name: data.DriverName,
-        contactNumber: [data.ContactNumber],
+        contactNumber: [data.contactNumber],
       },
     };
     console.log(ambulanceData);
     const response = await axios.post(
       `${baseUrl}/ambulanceService/create`,
-      ambulanceData
+      ambulanceData,
+      header
     );
+    if (response.status === 202 || response.status === 201) {
+      setIsChange(!isChange);
+    }
     console.log(response);
     e.target.reset();
   };
@@ -67,6 +77,10 @@ const AddAmbulance = () => {
           <button class="btn btn-dark ">submit</button>
         </form>
       </div>
+      <AllAmbulance
+        isChange={isChange}
+        setIsChange={setIsChange}
+      ></AllAmbulance>
     </div>
   );
 };

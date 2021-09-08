@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { baseUrl } from "../../../utils/baseUrl/baseurl";
 import ImageUploader from "../../../utils/singleImageUploader/ImageUploader";
 import "./AddDoctor.css";
 
 const AddDoctor = () => {
+  const header = useSelector((state) => state.login.headers);
+
   const { register, handleSubmit } = useForm();
   const [image, setImage] = useState({});
   const [show, setShow] = useState(false);
@@ -54,7 +57,11 @@ const AddDoctor = () => {
       confirmPassword: data.confirmPassword,
     };
     console.log(postDoctor);
-    const response = await axios.post(`${baseUrl}/doctor/create`, postDoctor);
+    const response = await axios.post(
+      `${baseUrl}/doctor/create`,
+      postDoctor,
+      header
+    );
     console.log(response);
     e.target.reset();
   };
