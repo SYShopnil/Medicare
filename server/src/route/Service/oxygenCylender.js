@@ -10,11 +10,14 @@ const {
   makeOxygenCylinderRequestController,
   deleteTemporaryOxygenCylenderByIdController,
   getAllOxygenServiceController,
+  OxygenCylinderRequestApproveController,
+  getAllOxygenUnApproveServiceRequestController
 } = require("../../controller/Service/oxygenCylender");
 
 //post
 // route.post('/create',authentication, authorization(["admin"]), createOxygenCylenderService)
-route.post("/create", createOxygenCylenderService);
+route.post("/create",  authentication, authorization(["admin"]), createOxygenCylenderService);
+route.post("/request/approve/:id",  authentication, authorization(["admin"]), OxygenCylinderRequestApproveController );
 
 //put
 // route.put(
@@ -23,7 +26,7 @@ route.post("/create", createOxygenCylenderService);
 //   authorization(["admin"]),
 //   updateOxygenCylenderByIdController
 // );
-route.put("/request/service", makeOxygenCylinderRequestController);
+route.put("/request/service", authentication, authorization(["patient"]),  makeOxygenCylinderRequestController);
 route.put(
   "/delete/temporary/:id",
   authentication,
@@ -33,6 +36,7 @@ route.put(
 
 //get
 route.get("/get/all", getAllOxygenServiceController);
+route.get("/get/all/unApproved/request", authentication, authorization(["admin"]), getAllOxygenUnApproveServiceRequestController);
 
 //export part
 module.exports = route;

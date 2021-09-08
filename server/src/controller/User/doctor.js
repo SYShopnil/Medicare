@@ -485,6 +485,37 @@ const showDoctorByCategoryController = async (req, res ) => {
     }
 }
 
+//doctor category controller
+const getDoctorCategoryController = async (req, res) => {
+    try {
+        const findAllDoctor = await Doctor.find({  //find all doctor's category
+            "officialInfo.isActive": true,
+            "officialInfo.isDelete": false
+        }).select ("officialInfo.category -_id") 
+        if (findAllDoctor){ //if find doctor then it will execute the
+            let category = []
+            findAllDoctor.map(data => {
+                category.push(...data.officialInfo.category) //get all category
+            })
+            const allCategory = [...new Set(category)] //this will remove all duplicates array category element
+            
+            res.status(202).json({
+                message : `${allCategory.length} category has found`,
+                allCategory
+            })
+        }else {
+            res.json({
+                message: "Doctor not found"
+            })
+        }
+    }catch (err) {
+        console.log(err);
+        res.json({
+            message: err.message,
+        })
+    }
+}
+
 module.exports = {
     createDoctorController,
     editDoctorByIdController,
@@ -494,5 +525,6 @@ module.exports = {
     seeTodaysAppointmentController,
     seeNextSevenAppointmentController,
     getThreeSpecialDoctorController,
-    showDoctorByCategoryController
+    showDoctorByCategoryController,
+    getDoctorCategoryController
 }
