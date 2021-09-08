@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Admin from "./Components/Admins/Admin/Admin";
 import Appoinments from "./Components/Appoinments/Appoinments";
+import ShowDoctorByCategory from "./Components/Appoinments/ShowDoctorByCategory";
 import Doctor from "./Components/Doctors/Doctor/Doctor";
 import Home from "./Components/Home/Home/Home";
 import Login from "./Components/Login/Login";
@@ -50,6 +51,7 @@ function App({ checkLogin, loginInfo, loadUserSuccess, loadUserFailed }) {
           <Route exact path="/home">
             <Home></Home>
           </Route>
+           <Route exact path = "/doctor/show" component = {ShowDoctorByCategory}/>
           <Route exact path="/login">
             <Login></Login>
           </Route>

@@ -1,5 +1,6 @@
 const ambulanceCreatValidation = require('../../../validation/Service/ambulanceService')
 const AmbulanceService = require('../../model/Service/AmbulanceService/ambulanceService')
+const AmbulanceServiceReq = require('../../model/Service/AmbulanceService/ambulanceServiceReq')
 
 //create a ambulanceService controller
 const createAmbulanceServiceController = async (req, res) => {
@@ -171,9 +172,109 @@ const showAllAmbulanceServiceController = async (req, res) => {
     }
 }
 
+//make a ambulance service 
+const makeAmbulanceServiceController = async (req, res) => {
+    try {
+        const {id} = req.user
+        const createNewAmbulanceService = new AmbulanceServiceReq({ //create a new ambulance service 
+            ...req.body,
+            "requestUseInfo.reqUserInfo": id
+        })
+        const saveNewService = await createNewAmbulanceService.save() //save the new service  
+        if (saveNewService) { //if the new service place successfully  then it will happen
+            res.status(201).json ({
+                message : "New Ambulance service Placed successfully please wait for approval from an admin",
+                data:  saveNewService
+            })
+        }else {
+            res.json ({
+                message: "New Ambulance service creation failed",
+            })
+        }
+    }catch (err) {
+        console.log(err);
+        res.json({
+            message: err.message
+        })
+    }
+}
+
+//get all un approved ambulance service 
+const getAllUnapprovedAmbulanceServiceController = async (req, res) => {
+    try {
+        const findUnApproveOxygenServiceReq = await AmbulanceServiceReq.find({
+            "others.isDelete": false,
+            "others.isActive": true,
+            "requestInfo.isApproved": false
+        }).populate({ //get only the name of the patient logged in
+            path: "requestUseInfo.reqUserInfo",
+            select: `personalInfo.firstName 
+                        personalInfo.lastName 
+                        userId `
+        }).select("requestUseInfo requestInfo")
+        if (findUnApproveOxygenServiceReq) { //if  ambulance servie has found then it will execute
+            res.status(202).json ({
+                message: `${findUnApproveOxygenServiceReq.length} ambulance service request request found `,
+                data: findUnApproveOxygenServiceReq
+            })
+        }else {
+            res.json ({
+                message: "No ambulance service request not found"
+            })
+        }
+
+    }catch (err) {
+        console.log(err);
+        res.json ({
+            message: err.message
+        })
+    }
+}
+
+//approve the pending ambulance service request 
+const approvePendingAmbulanceServiceRequestController = async (req, res) => {
+    try {
+        const {id:ambulanceServiceRequestId} = req.params //get the request id from params
+        const findPendingRequestAndApprovedIt = await AmbulanceServiceReq.updateOne (
+            {
+                "_id": ambulanceServiceRequestId,
+                "requestInfo.isApproved": false,
+                "others.isDelete": false,
+                "others.isActive": true
+
+            }, //query
+            {
+                $set: {
+                    "requestInfo.isApproved": true,
+                    "others.isDelete": true,
+                    "others.isActive": false
+                }
+            }, //update
+            {multi: true}//option
+        )
+        if (findPendingRequestAndApprovedIt) {
+            res.status(202).json({
+                message: "Ambulance request has been approved by an admin"
+            })
+        }else {
+            res.json ({
+                message: "Ambulance request approved failed",
+            })
+        }
+    }catch (err) {
+        console.log(err);
+        res.json ({
+            message: err.message
+        })
+    }
+}
+
 module.exports = {
     createAmbulanceServiceController,
     updateAmbulanceServiceByIdController,
     deleteAmbulanceServiceById,
-    showAllAmbulanceServiceController
+    showAllAmbulanceServiceController,
+    makeAmbulanceServiceController,
+    getAllUnapprovedAmbulanceServiceController,
+    approvePendingAmbulanceServiceRequestController
 }

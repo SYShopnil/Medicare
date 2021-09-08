@@ -12,6 +12,7 @@ const AddDoctor = () => {
   const { register, handleSubmit } = useForm();
   const [image, setImage] = useState({});
   const [show, setShow] = useState(false);
+
   const showHandler1 = (e) => {
     e.preventDefault();
     setShow({

@@ -15,6 +15,7 @@ const oxygenCylinderSchema = new Schema({
             type: Boolean,
             default: true
         }
+        
     },
     modificationInfo:{
         createdAt: {

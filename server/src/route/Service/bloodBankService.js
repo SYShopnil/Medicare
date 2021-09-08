@@ -7,15 +7,18 @@ const authorization = require('../../../middleware/auth/authorization')
 const {createBloodBankServiceController,
     updateBloodBankServiceByIdController,
     deleteBloodBankServiceById,
-    bloodBankServiceRequestController,
+    bloodBankServiceRequestApproveController,
     addBloodInServiceController,
     showALlBloodBankServiceController,
     getBloodServiceByGroupNameController,
-    getBloodServiceByObjectIdController} = require('../../controller/Service/bloodBankService')
+    getBloodServiceByObjectIdController,
+    makeBloodBankServiceRequestController,
+    getAllBloodBankServiceRequestController} = require('../../controller/Service/bloodBankService')
 
 //post 
 route.post(`/create`,authentication, authorization(["admin"]),  createBloodBankServiceController) 
-route.post(`/make/request`, authentication, authorization(["patient"]), bloodBankServiceRequestController) 
+route.post(`/approve/request/:id`, authentication, authorization(["admin"]), bloodBankServiceRequestApproveController) 
+route.post(`/make/request`, authentication, authorization(["patient"]), makeBloodBankServiceRequestController) 
 
 
 //put
@@ -27,6 +30,7 @@ route.put(`/add/blood/:id`, authentication, authorization(["admin"]), addBloodIn
 route.get('/get/all', showALlBloodBankServiceController)
 route.get('/get/service/:group', getBloodServiceByGroupNameController)
 route.get('/get/service/by/:id', getBloodServiceByObjectIdController)
+route.get('/get/unApproved/request',  authentication, authorization(["admin"]), getAllBloodBankServiceRequestController)
 
 //export part 
 module.exports = route
