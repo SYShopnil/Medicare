@@ -8,6 +8,7 @@ import "./AddDoctor.css";
 
 const AddDoctor = () => {
   const header = useSelector((state) => state.login.headers);
+  const [message, setMessage] = useState("");
 
   const { register, handleSubmit } = useForm();
   const [image, setImage] = useState({});
@@ -64,8 +65,18 @@ const AddDoctor = () => {
       header
     );
     console.log(response);
+
+    const responseMessage = response.data.message;
+
+    console.log(responseMessage);
+    setMessage(responseMessage);
+
     e.target.reset();
   };
+  if (message !== "") {
+    alert(message);
+    setMessage("");
+  }
   return (
     <div className="text-center mt-5 p-5">
       <h1 className="doctor-title text-white bg-primary w-50">Create Doctor</h1>

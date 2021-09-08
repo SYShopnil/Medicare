@@ -1,13 +1,42 @@
+import axios from "axios";
 import React from "react";
+import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { baseUrl } from "../../utils/baseUrl/baseurl";
 import Navbar from "../Home/Navber/Navber";
-
 const OxygenService = () => {
   const loginInfo = useSelector((state) => state.login.headers);
   console.log(loginInfo);
-  // const { register, handleSubmit } = useForm();
-  // const onSubmit = async (data, e) => {};
+  const { register, handleSubmit } = useForm();
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
+    const requestOxygen = {
+      requestUseInfo: {
+        name: data.name,
+        contactInfo: {
+          email: data.email,
+          contactNumber: data.number,
+        },
+      },
+      requestInfo: {
+        amount: data.amount,
+      },
+    };
 
+    const getAllOxygen = await axios.get(`${baseUrl}/oxygenCylinder/get/all`);
+    console.log(getAllOxygen.data.data[0]._id);
+    if (getAllOxygen.status === 202) {
+      const cylinderId = getAllOxygen.data.data[0]._id;
+      requestOxygen.cylinderId = cylinderId;
+      console.log({ requestOxygen });
+      const requestOxygenService = await axios.put(
+        `${baseUrl}/oxygenCylinder/request/service`,
+        requestOxygen,
+        loginInfo
+      );
+      console.log(requestOxygenService.data);
+    }
+  };
   return (
     <div>
       <Navbar />
@@ -17,13 +46,13 @@ const OxygenService = () => {
       >
         oxygen service
       </h1>
-      <form className="col-md-6" action="">
+      <form className="col-md-6" onSubmit={handleSubmit(onSubmit)} action="">
         {/* firstname field   */}
         <div class="form-group mb-2">
           <input
             type="text"
             className="form-control"
-            // {...register("_id")}
+            {...register("name")}
             id="exampleInputEmail1"
             placeholder="Your Name"
           ></input>
@@ -31,9 +60,9 @@ const OxygenService = () => {
         {/* email field  */}
         <div class="form-group mb-2">
           <input
-            type="text"
+            type="email"
             className="form-control"
-            // {...register("_id")}
+            {...register("email")}
             id="exampleInputEmail1"
             placeholder="your email"
           ></input>
@@ -43,17 +72,27 @@ const OxygenService = () => {
           <input
             type="text"
             className="form-control"
-            // {...register("_id")}
+            {...register("number")}
             id="exampleInputEmail1"
             placeholder="your contact number"
           ></input>
         </div>
-        {/* blood group  field   */}
+        {/* contact field   */}
+        <div class="form-group mb-2">
+          <input
+            type="text"
+            className="form-control"
+            {...register("amount")}
+            id="exampleInputEmail1"
+            placeholder="amount"
+          ></input>
+        </div>
+        {/* address  field   */}
         <div class="form-group mb-2">
           <textarea
             type="text"
             className="form-control"
-            // {...register("_id")}
+            {...register("address")}
             id="exampleInputEmail1"
             placeholder="your address"
           ></textarea>

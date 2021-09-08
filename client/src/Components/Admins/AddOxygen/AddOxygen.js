@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { baseUrl } from "../../../utils/baseUrl/baseurl";
+import ApproveOxygen from "./ApproveOxygen";
 import Oxygen from "./Oxygen";
 
 const AddOxygen = () => {
+  const header = useSelector((state) => state.login.headers);
   const { register, handleSubmit } = useForm();
   const [isChange, setIsChange] = useState(false);
 
@@ -15,7 +18,8 @@ const AddOxygen = () => {
 
     const response = await axios.post(
       `${baseUrl}/oxygenCylinder/create`,
-      oxygenData
+      oxygenData,
+      header
     );
     if (response.status === 201 || response.status === 202) {
       setIsChange(!isChange);
@@ -51,6 +55,7 @@ const AddOxygen = () => {
         </h1>
         <Oxygen isChange={isChange}></Oxygen>
       </div>
+      <ApproveOxygen />
     </div>
   );
 };

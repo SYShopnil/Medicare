@@ -6,6 +6,7 @@ import UpdateAmbulance from "../UpdateAmbulance/UpdateAmbulance";
 const AllAmbulance = ({ isChange, setIsChange }) => {
   const [ambulances, setAmbulance] = useState([]);
   const [value, setValue] = useState("");
+  const [updateButtonClicked, setUpdateButtonClicked] = useState(false);
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   useEffect(() => {
@@ -17,14 +18,16 @@ const AllAmbulance = ({ isChange, setIsChange }) => {
       setAmbulance(allAmbulance.data.data);
     })();
   }, [isChange]);
-  console.log(ambulances);
-  function openModal(id) {
-    console.log(id);
-    setValue(id);
+  // console.log(ambulances);
+  function openModal(ambulance) {
+    // console.log(ambulance);
+    setValue(ambulance);
+    setUpdateButtonClicked(true);
     setIsOpen(true);
   }
   function closeModal() {
     setIsOpen(false);
+    setUpdateButtonClicked(false);
   }
   return (
     <div>
@@ -48,7 +51,7 @@ const AllAmbulance = ({ isChange, setIsChange }) => {
               <td>
                 <span
                   onClick={() => {
-                    openModal(ambulance._id);
+                    openModal(ambulance);
                   }}
                   className="btn btn-primary me-2"
                 >
@@ -62,6 +65,8 @@ const AllAmbulance = ({ isChange, setIsChange }) => {
       </table>
       <UpdateAmbulance
         value={value}
+        updateButtonClicked={updateButtonClicked}
+        setUpdateButtonClicked={setUpdateButtonClicked}
         openModal={openModal}
         closeModal={closeModal}
         modalIsOpen={modalIsOpen}
