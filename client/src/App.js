@@ -33,6 +33,7 @@ function App({ checkLogin, loginInfo, loadUserSuccess, loadUserFailed }) {
           `${baseUrl}/user/get/own/profile`,
           headers
         );
+        console.log({data});
         if (data.status == 202) {
           loadUserSuccess(data.data);
         } else {

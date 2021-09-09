@@ -3,6 +3,7 @@ import {useLocation} from 'react-router-dom'
 import axios from "axios"
 import { baseUrl } from '../../utils/baseUrl/baseurl'
 import Navbar from '../Home/Navber/Navber'
+import MakeAnAppointment from './MakeAnAppointment'
 
 
 const ShowDoctorByCategory = () => {
@@ -10,9 +11,25 @@ const ShowDoctorByCategory = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [doctorData, setDoctorData] = useState([])
     const [searchCategory, setSearchCategory] = useState("")
+    const [openModalStatus, setOpenModal] = useState(false)
+    const [value, setValue] = useState("")
 
-    //to get tha doctor of following category 
-    console.log(searchCategory);
+   
+    // make an appointment handler
+    const appointmentHandler = (e, doctorId) => {
+        e.preventDefault()
+        openModal()
+        setValue(doctorId)
+    }
+    //create a open modal handler
+    const openModal = () => {
+        setOpenModal(true)
+    }
+
+    //create a close modal handler 
+    const closeModal = () => {
+        setOpenModal(false)
+    }
     useEffect(() => {
         return (async () => {
             try {
@@ -40,7 +57,7 @@ const ShowDoctorByCategory = () => {
         })()
     }, [])
     return (
-        <div className="bg-primary" style = {{height: "100vh"}}>
+        <div className="bg-primary" >
             <div>
                 {
                     isLoading 
@@ -55,9 +72,11 @@ const ShowDoctorByCategory = () => {
                            ?
                            <h1>No Doctor found</h1>
                            :
-                           <div className="row">
+                           <>
+                            <div className="row">
                                 {
                                      doctorData.map ((data, index) => {
+                                         console.log(data._id);
                                          const {personalInfo,
                                                 officialInfo} = data //get the data from data response
                                          const {profileImage,
@@ -66,9 +85,9 @@ const ShowDoctorByCategory = () => {
                                         const {educationalHistory} = officialInfo //get the data from official info
                                                 console.log(data);
                                         return (
-                                           <div  key = {data._id} className="card col-12 col-md-4 p-3 m-4" >
-                                                <img src= {`${profileImage}`} className="card-img-top" alt= {`${profileImage}`}/>
-                                                <div className="card-body text-center ">
+                                           <div  key = {data._id} className="card col-12 col-md-3 p-4 m-4" >
+                                                <img src= {`${profileImage}`} className="card-img-top" alt= {`${profileImage}`} style = {{height: "180px", width: "180px", margin: "0 auto"}}/>
+                                                <div className="card-body text-center  pt-5">
                                                     <h5 className="card-title">{firstName} {lastName}</h5>
                                                     <div style = {{minHeight: "90px"}}>
                                                         {
@@ -80,13 +99,23 @@ const ShowDoctorByCategory = () => {
                                                             })
                                                         }
                                                     </div>
-                                                    <button href="#" className="btn btn-primary ">Make An Appointment</button>
+                                                    <button className="btn btn-primary " onClick={(e) => appointmentHandler(e, data._id )}>Make An Appointment</button>
+                                                    
                                                 </div>
                                             </div>
                                         )
                                     })
                                 }
                            </div>
+                           {
+                               openModalStatus 
+                                &&
+                                <MakeAnAppointment
+                                value = {value}
+                                openModal = {openModal}
+                                closeModal = {closeModal} />
+                           }
+                           </>
                         }
                     </>
                 }
