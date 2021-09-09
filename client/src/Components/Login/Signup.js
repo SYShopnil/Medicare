@@ -8,6 +8,7 @@ import Navbar from "../Home/Navber/Navber";
 import "./Signup.css";
 const Signup = () => {
   const { register, handleSubmit } = useForm();
+  const [message, setMessage] = useState("");
   const [image, setImage] = useState({});
 
   const [show, setShow] = useState({
@@ -51,11 +52,15 @@ const Signup = () => {
     console.log(postUser);
 
     const response = await axios.post(`${baseUrl}/patient/create`, postUser);
-
+    const responseMessage = response.data.message;
+    console.log(responseMessage);
     console.log(response);
     e.target.reset();
   };
-
+  if (message !== "") {
+    alert(message);
+    setMessage("");
+  }
   // push to  login route
   const history = useHistory();
   const goLogin = () => {

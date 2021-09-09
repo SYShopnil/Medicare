@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { baseUrl } from "../../../utils/baseUrl/baseurl";
+import Allappointments from "./Allappointments";
 
 const Patients = () => {
   const header = useSelector((state) => state.login.headers);
@@ -20,17 +21,20 @@ const Patients = () => {
 
   useEffect(() => {
     return (async () => {
-      const getAllDoctor = await axios.get(`${baseUrl}/doctor/get/all`, header);
-      // console.log(getAllDoctor.data.data);
+      const getAllPatient = await axios.get(
+        `${baseUrl}/patient/get/all`,
+        header
+      );
+      // console.log(getAllPatient.data.data);
       setIsChange(!Ischange);
-      setPatients(getAllDoctor.data.data);
+      setPatients(getAllPatient.data.data);
     })();
   }, []);
-  // console.log(doctors);
-  console.log(value);
+  // console.log(pateints);
+  // console.log(value);
   return (
     <div>
-      <h1 className="text-center mt-5 bg-warning text-light">Doctors</h1>
+      <h1 className="text-center mt-5 bg-warning text-white">Patient User</h1>
       <div className="table">
         <table className="table table-bordered bg-dark table-striped p-3">
           <thead
@@ -38,46 +42,33 @@ const Patients = () => {
             className="text-center text-warning p-2"
           >
             <th scope="col">No</th>
-            <th scope="col">Doctor Name</th>
-            <th scope="col">Doctor Id</th>
-            <th scope="col">Category</th>
+            <th scope="col">Patient Name</th>
+            <th scope="col">User Id</th>
             <th scope="col">Contact</th>
-            <th>action</th>
+            <th scope="col">Details</th>
+            {/* <th>action</th> */}
           </thead>
           <tbody>
             {patients.map((patient, i) => (
               <tr className="text-center text-white">
                 <td>{i + 1}</td>
-                {/* <td>
-                  {doctor.personalInfo.firstName +
-                    " " +
-                    doctor.personalInfo.lastName}
-                </td>
-                <td>{doctor.userId}</td>
-                <td>{doctor.officialInfo.category[0]}</td>
-                <td>{doctor.personalInfo.contact.email}</td> */}
                 <td>
-                  <span
-                    onClick={() => {
-                      openModal(patient._id);
-                    }}
-                    className="btn btn-success me-2"
-                  >
-                    Update
-                  </span>
-                  <span className="btn btn-danger">Delete</span>
+                  {patient.personalInfo.firstName +
+                    " " +
+                    patient.personalInfo.lastName}
+                </td>
+                <td>{patient.userId}</td>
+                <td>{patient.personalInfo.contact.email}</td>
+                <td>
+                  <button className="btn btn-danger">Details</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      {/* <UpdateDoctor
-        value={value}
-        openModal={openModal}
-        closeModal={closeModal}
-        modalIsOpen={modalIsOpen}
-      /> */}
+      {/* <h1 className="text-center bg-danger">Appointments</h1> */}
+      <Allappointments></Allappointments>
     </div>
   );
 };

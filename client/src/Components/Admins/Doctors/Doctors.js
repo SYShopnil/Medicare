@@ -17,16 +17,20 @@ const Doctors = () => {
   function closeModal() {
     setIsOpen(false);
   }
-  
+
   // doctor delete handler
-  const doctorDeleteHander = async(e, _id) => {
+  const doctorDeleteHander = async (e, _id) => {
     console.log(_id);
-    const sentDeleteResponse = await axios.post(`${baseUrl}/doctor/delete/${_id}`, {}, header)
+    const sentDeleteResponse = await axios.post(
+      `${baseUrl}/doctor/delete/${_id}`,
+      {},
+      header
+    );
     if (sentDeleteResponse.status == 202) {
-      setIsChange(!Ischange)
+      setIsChange(!Ischange);
     }
-  }
-  //to re render the component and get all doctor data 
+  };
+  //to re render the component and get all doctor data
   useEffect(() => {
     return (async () => {
       const getAllDoctor = await axios.get(`${baseUrl}/doctor/get/all`, header);
@@ -71,25 +75,28 @@ const Doctors = () => {
                   >
                     Update
                   </span>
-                  <span className="btn btn-danger" onClick={(e) => doctorDeleteHander(e, doctor._id)}>Delete</span>
+                  <span
+                    className="btn btn-danger"
+                    onClick={(e) => doctorDeleteHander(e, doctor._id)}
+                  >
+                    Delete
+                  </span>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      {
-        modalIsOpen 
-        &&
-         <UpdateDoctor
+      {modalIsOpen && (
+        <UpdateDoctor
           value={value}
           openModal={openModal}
           closeModal={closeModal}
           modalIsOpen={modalIsOpen}
-          setIsChange = {setIsChange}
-          isChange = {Ischange}
+          setIsChange={setIsChange}
+          isChange={Ischange}
         />
-      }
+      )}
     </div>
   );
 };

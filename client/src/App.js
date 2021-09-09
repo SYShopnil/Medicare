@@ -33,7 +33,7 @@ function App({ checkLogin, loginInfo, loadUserSuccess, loadUserFailed }) {
           `${baseUrl}/user/get/own/profile`,
           headers
         );
-        console.log({data});
+        console.log({ data });
         if (data.status == 202) {
           loadUserSuccess(data.data);
         } else {
@@ -52,14 +52,14 @@ function App({ checkLogin, loginInfo, loadUserSuccess, loadUserFailed }) {
           <Route exact path="/home">
             <Home></Home>
           </Route>
-           <Route exact path = "/doctor/show" component = {ShowDoctorByCategory}/>
+          <Route exact path="/doctor/show" component={ShowDoctorByCategory} />
           <Route exact path="/login">
             <Login></Login>
           </Route>
-          <Route  path="/doctor">
+          <Route path="/doctor">
             <Doctor></Doctor>
           </Route>
-          <Route  path="/admin">
+          <Route path="/admin">
             <Admin></Admin>
           </Route>
           <Route exact path="/patientPanel">

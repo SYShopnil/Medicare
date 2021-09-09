@@ -1,11 +1,7 @@
 import React from "react";
 
-const YourAppoinment = () => {
-  return (
-    <div>
-      <h1>Your Appoinment</h1>
-    </div>
-  );
-};
+function YourAppoinment() {
+  return <div></div>;
+}
 
 export default YourAppoinment;

@@ -1,7 +1,8 @@
 import React from "react";
 import Banner from "../../../images/banner.jpg";
+import AboutUs from "../AboutUs/AboutUs";
 import Service from "../AllServices/Service";
-import Header from "../Header/Header";
+import ContactUs from "../ContactUs/ContactUs";
 import Navbar from "../Navber/Navber";
 import "./Home.css";
 
@@ -9,6 +10,7 @@ const Home = () => {
   return (
     <div>
       <Navbar></Navbar>
+
       <div
         className="Banner p-3"
         style={{
@@ -17,10 +19,10 @@ const Home = () => {
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
-      >
-        <Header></Header>
-      </div>
+      ></div>
       <Service></Service>
+      <AboutUs></AboutUs>
+      <ContactUs></ContactUs>
     </div>
   );
 };

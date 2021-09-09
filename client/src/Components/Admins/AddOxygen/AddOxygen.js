@@ -8,6 +8,7 @@ import Oxygen from "./Oxygen";
 
 const AddOxygen = () => {
   const header = useSelector((state) => state.login.headers);
+  console.log(header);
   const { register, handleSubmit } = useForm();
   const [isChange, setIsChange] = useState(false);
 

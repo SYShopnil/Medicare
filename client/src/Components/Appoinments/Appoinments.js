@@ -37,7 +37,9 @@ const Appoinments = () => {
           {category.length != 0 ? (
             <>
               <div>
-                <h1 className={`text-center mt-2 mb-2`}>Doctor's Category</h1>
+                <h1 className={`text-center mt-2 mb-2`}>
+                  Choose your Doctors Category
+                </h1>
               </div>
               <div className={`row container-fluid`}>
                 {category.map((data, index) => {
