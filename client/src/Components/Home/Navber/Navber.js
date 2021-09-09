@@ -69,9 +69,42 @@ const Navbar = () => {
                   </li>
                 </ul>
               </li>
+              {/* Dashboard dropdown    */}
+              <li class="nav-item dropdown">
+                <Link
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDarkDropdownMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Dashboard
+                </Link>
+                <ul
+                  class="dropdown-menu dropdown-menu-dark"
+                  aria-labelledby="navbarDarkDropdownMenuLink"
+                >
+                  <li>
+                    <Link class="dropdown-item" to="/doctor">
+                      Doctor
+                    </Link>
+                  </li>
+                  <li>
+                    <Link class="dropdown-item" to="/admin">
+                      Admin
+                    </Link>
+                  </li>
+                  <li>
+                    <Link class="dropdown-item" to="/patientPanel">
+                      Patient
+                    </Link>
+                  </li>
+                </ul>
+              </li>
               {/* doctor link  */}
 
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link className="nav-link" to="/doctor">
                   Doctor
                 </Link>
@@ -85,7 +118,7 @@ const Navbar = () => {
                 <Link className="nav-link" to="/patientPanel">
                   Patient
                 </Link>
-              </li>
+              </li> */}
               {!isLoggedIn ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
