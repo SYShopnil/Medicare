@@ -70,6 +70,7 @@ const Navbar = () => {
                 </ul>
               </li>
               {/* doctor link  */}
+
               <li className="nav-item">
                 <Link className="nav-link" to="/doctor">
                   Doctor
@@ -92,20 +93,22 @@ const Navbar = () => {
                   </Link>
                 </li>
               ) : (
-                <button
+                <li
                   onClick={() => dispatch(logoutProcess())}
-                  className="nav-item btn btn-danger"
+                  className="nav-item"
                 >
-                  <Link className="nav-link" to="/home">
+                  <Link className="nav-link bg-danger" to="/home">
                     Log out
                   </Link>
-                </button>
+                </li>
               )}
-              {/* <li>
-                {isLoggedIn && loggedInUserData !== "" && (
-                  <li>{isLoggedIn.personalInfo.firstName}</li>
-                )}
-              </li> */}
+              <li className="nav-item ms-1">
+                <p className="nav-link ">
+                  {isLoggedIn && loggedInUserData != "" && (
+                    <li className="bg-success p-1">{`Hello!! ${loggedInUserData.personalInfo.firstName} ${loggedInUserData.personalInfo.lastName}`}</li>
+                  )}
+                </p>
+              </li>
             </ul>
           </div>
         </div>
