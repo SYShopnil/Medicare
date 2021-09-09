@@ -12,6 +12,7 @@ import Login from "./Components/Login/Login";
 import Signup from "./Components/Login/Signup";
 import NotFound from "./Components/NotFound/NotFound";
 import PatientPanel from "./Components/PateintPanel/PatientPanel/PatientPanel";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import AmbulanceService from "./Components/Services/AmbulanceService";
 import BloodBankService from "./Components/Services/BloodBankService";
 import OxygenService from "./Components/Services/OxygenService";
@@ -56,30 +57,30 @@ function App({ checkLogin, loginInfo, loadUserSuccess, loadUserFailed }) {
           <Route exact path="/login">
             <Login></Login>
           </Route>
-          <Route path="/doctor">
+          <PrivateRoute exact path="/doctor">
             <Doctor></Doctor>
-          </Route>
-          <Route path="/admin">
+          </PrivateRoute>
+          <PrivateRoute path="/admin">
             <Admin></Admin>
-          </Route>
-          <Route exact path="/patientPanel">
+          </PrivateRoute>
+          <PrivateRoute exact path="/patientPanel">
             <PatientPanel></PatientPanel>
-          </Route>
+          </PrivateRoute>
           <Route exact path="/signup">
             <Signup></Signup>
           </Route>
-          <Route exact path="/appoinments">
+          <PrivateRoute exact path="/appoinments">
             <Appoinments></Appoinments>
-          </Route>
-          <Route exact path="/bloodBank">
+          </PrivateRoute>
+          <PrivateRoute exact path="/bloodBank">
             <BloodBankService></BloodBankService>
-          </Route>
-          <Route exact path="/ambulanceService">
+          </PrivateRoute>
+          <PrivateRoute exact path="/ambulanceService">
             <AmbulanceService></AmbulanceService>
-          </Route>
-          <Route exact path="/oxygenService">
+          </PrivateRoute>
+          <PrivateRoute exact path="/oxygenService">
             <OxygenService></OxygenService>
-          </Route>
+          </PrivateRoute>
           <Route exact path="/">
             <Home></Home>
           </Route>
