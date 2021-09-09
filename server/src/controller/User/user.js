@@ -976,7 +976,7 @@ const seeOwnProfileController = async (req, res) => {
 
       if (findPatient) {
         //if the patient has found then it will execute
-        res.staus(202).json({
+        res.status(202).json({
           message: "Patient found",
           data: findPatient,
         });
