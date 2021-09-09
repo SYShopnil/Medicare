@@ -14,7 +14,7 @@ const {createAppointmentController,
 
 
 //post  
-route.post('/create', authentication, authorization(["admin"]),  authentication,  createAppointmentController)
+route.post('/create', authentication, authorization(["patient"]),  authentication,  createAppointmentController)
 
 //put 
 route.put('/update/:id', authentication, authorization(["admin"]), updateAppointmentById)

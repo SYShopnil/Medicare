@@ -25,7 +25,7 @@ route.post('/own/profile/update', authentication, authorization(["admin", "docto
 route.post('/own/profile/picture/update', authentication, authorization(["admin", "doctor", "patient"]), updateProfilePictureAndDeleteExistOneController)
 
 //get 
-route.get('/get/own/appointment',authentication, authorization(["admin", "doctor" ]), SeeOnlyHisAppointment )
+route.get('/get/own/appointment',authentication, authorization([ "doctor" , "patient"]), SeeOnlyHisAppointment )
 route.get('/get/own/profile', authentication, authorization(["admin", "doctor", "patient"]), seeOwnProfileController )
 
 

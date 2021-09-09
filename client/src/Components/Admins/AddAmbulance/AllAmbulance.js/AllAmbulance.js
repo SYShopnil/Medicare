@@ -1,14 +1,23 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { baseUrl } from "../../../../utils/baseUrl/baseurl";
 import UpdateAmbulance from "../UpdateAmbulance/UpdateAmbulance";
 
-const AllAmbulance = ({ isChange, setIsChange }) => {
+const AllAmbulance = ({ isChange, setIsChange , header}) => {
   const [ambulances, setAmbulance] = useState([]);
   const [value, setValue] = useState("");
-  const [updateButtonClicked, setUpdateButtonClicked] = useState(false);
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [isClicked, setIsClicked] = React.useState(false);
 
+  // ambulance service delete handler
+  const ambulanceServiceDeleteHandler = async(e, _id) => {
+    console.log(_id);
+    const sentDeleteReq = await axios.put(`${baseUrl}/ambulanceService/delete/temporary/${_id}`, {}, header)
+    if (sentDeleteReq.status == 202) {
+      setIsChange(!isChange) //rerender the get all ambulance service part
+    }
+  }
   useEffect(() => {
     return (async () => {
       const allAmbulance = await axios.get(
@@ -20,14 +29,14 @@ const AllAmbulance = ({ isChange, setIsChange }) => {
   }, [isChange]);
   // console.log(ambulances);
   function openModal(ambulance) {
-    // console.log(ambulance);
     setValue(ambulance);
-    setUpdateButtonClicked(true);
     setIsOpen(true);
+    setIsClicked(true)
   }
-  function closeModal() {
+  function closeModal(setFormData, initialState) {
     setIsOpen(false);
-    setUpdateButtonClicked(false);
+    setFormData(initialState)
+
   }
   return (
     <div>
@@ -43,7 +52,7 @@ const AllAmbulance = ({ isChange, setIsChange }) => {
         </thead>
         <tbody className="">
           {ambulances.map((ambulance, i) => (
-            <tr className="text-center text-white p-2">
+            <tr  key = {i} className="text-center text-white p-2">
               <td>{i + 1}</td>
               <td>{ambulance.ambulanceInfo.registrationNo}</td>
               <td>{ambulance.driverInfo.name}</td>
@@ -57,22 +66,34 @@ const AllAmbulance = ({ isChange, setIsChange }) => {
                 >
                   update
                 </span>
-                <span className="btn btn-danger">Delete</span>
+                <span className="btn btn-danger"  onClick={(e) => ambulanceServiceDeleteHandler(e, ambulance._id )}>Delete</span>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <UpdateAmbulance
-        value={value}
-        updateButtonClicked={updateButtonClicked}
-        setUpdateButtonClicked={setUpdateButtonClicked}
-        openModal={openModal}
-        closeModal={closeModal}
-        modalIsOpen={modalIsOpen}
-      ></UpdateAmbulance>
+      {
+        modalIsOpen 
+        &&
+        <UpdateAmbulance
+          value={value}
+          setIsChange = {isClicked}
+          openModal={modalIsOpen}
+          setOpenModal={setIsOpen}
+          closeModal={closeModal}
+          setIsChange={setIsChange}
+          isChange = {isChange}
+        ></UpdateAmbulance>
+      }
     </div>
   );
 };
 
-export default AllAmbulance;
+const mapStateToProps = (state) => {
+  return {
+    header: state.login.headers
+  }
+}
+
+
+export default connect(mapStateToProps)(AllAmbulance);

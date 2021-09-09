@@ -1,0 +1,15 @@
+.wrap {
+    position: absolute;
+    background: rebeccapurple;
+    top: 0;
+    left: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgb(209,209,212);
+    background: linear-gradient(
+90deg, rgba(209,209,212,0.6138830532212884) 0%, rgba(210,206,206,0.25253851540616246) 35%, rgba(179,238,219,0.1881127450980392) 100%, rgba(0,212,255,1) 100%);
+    background: rgb(209,209,212);
+    background: linear-gradient(
+90deg, rgba(209,209,212,0.6138830532212884) 0%, rgba(164,164,164,0.4290091036414566) 50%, rgba(203,207,205,0.44021358543417366) 100%, rgba(0,212,255,1) 100%);
+}
