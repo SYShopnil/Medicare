@@ -7,7 +7,7 @@ function AboutUs() {
     <div className="about">
       <h1
         id="about-title"
-        className="bg-warning bg-gradient text-light text-center p-5"
+        className="bg-info bg-gradient text-light text-center p-5"
       >
         About Us
       </h1>
