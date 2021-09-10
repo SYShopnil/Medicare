@@ -11,6 +11,7 @@ const Home = () => {
     <div>
       <Navbar></Navbar>
 
+      {/* background image    */}
       <div
         className="Banner p-3"
         style={{

@@ -26,11 +26,14 @@ const Service = () => {
   ];
   return (
     <div id="service" className="text-center bg-info bg-gradient">
+      {/* title here   */}
       <h1 className="bg-success w-20 p-5 text-light text-center">
         {" "}
         Our Services
       </h1>
+      {/* body part    */}
       <div className="row p-5 mt-5">
+        {/* map loop function   */}
         {serviceList.map((s) => (
           <div className="col-md-3">
             <div className="card shadow rounded" style={{ width: "18rem" }}>

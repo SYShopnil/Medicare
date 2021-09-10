@@ -20,7 +20,9 @@ function ApproveBlood() {
   }, []);
   return (
     <div>
-      <h1>Request of Blood Bank</h1>
+      <h1 className="bg-warning text-center text-light">
+        Request of Blood Bank
+      </h1>
 
       <div>
         {unApprovalBlood.length === 0 ? (
@@ -36,7 +38,8 @@ function ApproveBlood() {
                 <th scope="col"> Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Contact</th>
-                <th scope="col">Bloodgroup</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">amount</th>
               </thead>
               <tbody>
                 {unApprovalBlood.map((value, i) => (
@@ -46,6 +49,7 @@ function ApproveBlood() {
                     <td>{value.requestUseInfo.contactInfo.email}</td>
                     <td>{value.requestUseInfo.contactInfo.contactNumber}</td>
                     <td>{value.requestInfo.bloodGroup}</td>
+                    <td>{value.requestInfo.amount}</td>
                     <td>
                       <button className="btn btn-danger">Approve</button>
                     </td>

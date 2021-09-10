@@ -9,6 +9,7 @@ const BloodBankService = () => {
   const header = useSelector((state) => state.login.headers);
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data, e) => {
+    e.preventDefault();
     const bloodData = {
       requestUseInfo: {
         name: data.name,
