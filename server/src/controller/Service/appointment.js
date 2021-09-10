@@ -284,7 +284,7 @@ const getAppointmentByIdController = async (req, res) => {
                         -modificationInfo`
             }).populate({
                 path: "appointmentDetails.prescription",
-                select: "prescriptionData",
+                select: "prescriptionData other -_id",
                 populate: {
                     path: "doctorInfo",
                     select: "_id"
