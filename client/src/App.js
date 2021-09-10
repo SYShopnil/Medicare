@@ -6,6 +6,7 @@ import "./App.css";
 import Admin from "./Components/Admins/Admin/Admin";
 import Appoinments from "./Components/Appoinments/Appoinments";
 import ShowDoctorByCategory from "./Components/Appoinments/ShowDoctorByCategory";
+import Dashboad from "./Components/Dashboad/Dashboad";
 import Doctor from "./Components/Doctors/Doctor/Doctor";
 import Home from "./Components/Home/Home/Home";
 import Login from "./Components/Login/Login";
@@ -62,6 +63,9 @@ function App({ checkLogin, loginInfo, loadUserSuccess, loadUserFailed }) {
           </PrivateRoute>
           <PrivateRoute path="/admin">
             <Admin></Admin>
+          </PrivateRoute>
+          <PrivateRoute path="/dashboard">
+            <Dashboad/>
           </PrivateRoute>
           <PrivateRoute  path="/patientPanel">
             <PatientPanel></PatientPanel>

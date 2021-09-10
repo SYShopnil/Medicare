@@ -72,16 +72,13 @@ const Navbar = () => {
               {/* Dashboard dropdown    */}
               <li class="nav-item dropdown">
                 <Link
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDarkDropdownMenuLink"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+                  class="nav-link"
+                  to =  "/dashboard"
+                  
                 >
                   Dashboard
                 </Link>
-                <ul
+                {/* <ul
                   class="dropdown-menu dropdown-menu-dark"
                   aria-labelledby="navbarDarkDropdownMenuLink"
                 >
@@ -100,7 +97,7 @@ const Navbar = () => {
                       Patient
                     </Link>
                   </li>
-                </ul>
+                </ul> */}
               </li>
               {/* doctor link  */}
 
