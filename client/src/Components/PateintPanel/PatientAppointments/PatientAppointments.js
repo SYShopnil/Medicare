@@ -2,26 +2,35 @@ import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import axios from 'axios'
 import { baseUrl } from "../../../utils/baseUrl/baseurl";
+import { useHistory, useRouteMatch} from "react-router";
 
 
 const PatientAppointments = ({
   loggedInUserData,
-  header
+  header,
+  
 }) => {
+  const  {path, url} = useRouteMatch() //get the path and url of my root route
   const [isLoading, setIsLoading] = useState(true)
   const [appointment, setApppointment] = useState([])
   // console.log({appointment});
-
+  const history = useHistory()
+  
+  //details handler 
+  const detailsHandler = (e, id) => {
+    history.push(`${path}/details/${id}`) //sent to individual appointment details page
+  }
   //load the user's appointment
   useEffect(() => {
     return (async () => {
       const sentAppoinmentRequest = await axios.get(`${baseUrl}/user/get/own/appointment`, header)
       // console.log(sentAppoinmentRequest.data);
-      if (sentAppoinmentRequest.status == 202) {
+      if (sentAppoinmentRequest.status == 202 &&  sentAppoinmentRequest.data.foundItems !== 0 ) {
         setApppointment(sentAppoinmentRequest.data.data)
         setIsLoading(false)
       }else {
         setIsLoading(false)
+        setApppointment([])
       }
     })()
   }, [])
@@ -62,6 +71,7 @@ const PatientAppointments = ({
                         //   openModal(doctor);
                         // }}
                         className="btn btn-danger me-2"
+                        onClick = {(e) => detailsHandler(e,appointment._id)}
                       >
                         Details
                       </span>

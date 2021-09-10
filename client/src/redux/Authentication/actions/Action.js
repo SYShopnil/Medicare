@@ -59,7 +59,7 @@ export const loginProcess = (formData) => async (dispatch, getState) => {
         headers
       );
       if (storeData.status == 202) {
-        dispatch(loginUserData(storeData.data.data));
+        dispatch(loginUserData(storeData.data));
       } else {
         dispatch(loginUserFailed());
       }

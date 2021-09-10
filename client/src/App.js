@@ -57,13 +57,13 @@ function App({ checkLogin, loginInfo, loadUserSuccess, loadUserFailed }) {
           <Route exact path="/login">
             <Login></Login>
           </Route>
-          <PrivateRoute exact path="/doctor">
+          <PrivateRoute path="/doctor">
             <Doctor></Doctor>
           </PrivateRoute>
           <PrivateRoute path="/admin">
             <Admin></Admin>
           </PrivateRoute>
-          <PrivateRoute exact path="/patientPanel">
+          <PrivateRoute  path="/patientPanel">
             <PatientPanel></PatientPanel>
           </PrivateRoute>
           <Route exact path="/signup">

@@ -15,7 +15,7 @@ const Allappointments = () => {
       //   console.log(allAppointments);
       setAppointments(allAppointments.data.data);
     })();
-  });
+  },[]);
   console.log(appointments);
   return (
     <div>
@@ -35,30 +35,36 @@ const Allappointments = () => {
           {/* <th>action</th> */}
         </thead>
         <tbody>
-          {appointments.map((appointments, i) => (
-            <tr className="text-light text-center">
-              <td>{i + 1}</td>
-              <td>{appointments.patientDetails.name}</td>
-              <td>{appointments.appointmentDetails.appointmentId}</td>
-              <td>{appointments.patientDetails.age}</td>
-              <td>
-                {appointments.appointmentDetails.doctorDetails.personalInfo
-                  .firstName +
-                  " " +
-                  appointments.appointmentDetails.doctorDetails.personalInfo
-                    .lastName}
-              </td>
-              <td>
-                {appointments.appointmentRequestUser.personalInfo.firstName +
-                  " " +
-                  appointments.appointmentRequestUser.personalInfo.lastName}
-              </td>
-              <td>{appointments.appointmentDetails.appointmentDate}</td>
-              <td>
-                <button className="btn btn-danger">Details</button>
-              </td>
-            </tr>
-          ))}
+          {
+            appointments.length != 0
+            &&
+            <>
+              {appointments.map((appointments, i) => (
+                <tr className="text-light text-center">
+                   <td>{i + 1}</td>
+                  <td>{appointments.patientDetails.name}</td>
+                  <td>{appointments.appointmentDetails.appointmentId}</td>
+                 <td>{appointments.patientDetails.age}</td>
+                  <td>
+                    {appointments.appointmentDetails.doctorDetails.personalInfo
+                      .firstName +
+                      " " +
+                      appointments.appointmentDetails.doctorDetails.personalInfo
+                        .lastName}
+                  </td>
+                   <td>
+                    {appointments.appointmentRequestUser.personalInfo.firstName +
+                      " " +
+                      appointments.appointmentRequestUser.personalInfo.lastName}
+                  </td>
+                  <td>{appointments.appointmentDetails.appointmentDate}</td>
+                  <td>
+                    <button className="btn btn-danger">Details</button>
+                  </td> 
+                </tr>
+              ))}
+            </>
+          }
         </tbody>
       </table>
     </div>

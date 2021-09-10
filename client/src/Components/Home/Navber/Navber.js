@@ -5,10 +5,10 @@ import { logoutProcess } from "../../../redux/Authentication/actions/Action";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const { isLoggedIn, loggedInUserData } = useSelector((state) => state.login);
+  const { isLoggedIn, isLoading, loggedInUserData } = useSelector((state) => state.login);
   console.log({ isLoggedIn, loggedInUserData });
   const dispatch = useDispatch();
-  console.log(isLoggedIn);
+  console.log({loggedInUserData, isLoggedIn, isLoading });
 
   return (
     <div>
@@ -137,8 +137,9 @@ const Navbar = () => {
               )}
               <li className="nav-item ms-1">
                 <p className="nav-link ">
-                  {isLoggedIn && loggedInUserData != "" && (
-                    <li className="bg-success p-1">{`Hello!! ${loggedInUserData.personalInfo.firstName} ${loggedInUserData.personalInfo.lastName}`}</li>
+                  {!isLoading  && isLoggedIn &&  (
+                    <li className="bg-success p-1">{`Hello!! ${loggedInUserData.data.personalInfo.firstName} ${loggedInUserData.data.personalInfo.lastName}`}</li>
+                    // <li className="bg-success p-1">{`Hello!!`}</li>
                   )}
                 </p>
               </li>
