@@ -11,6 +11,7 @@ const Appointment = () => {
     const [appointment, setAppointment] = useState({})
     const [succesfulAppointment, setSuccesfulAppointment] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
+    const [showUpdateButton, setShowUpdateButton] = useState(false)
     // console.log({appointment, succesfulAppointment});
 
     //check that is appointment data get or not
@@ -25,14 +26,37 @@ const Appointment = () => {
         var  {userType} = loginState.loggedInUserData.data
     }
 
+    // useEffect(() => {
+    //     return (async () => {
+    //         if (true) {
+    //             const appointmentData = await axios.get(`${baseUrl}/appointment/get/individual/${appointmentId}`, header)
+    //             if (appointmentData.data.data.appointmentDetails.prescription != undefined) {
+    //                 setShowUpdateButton(true)
+    //                 setIsLoading(false)
+    //             }else {
+    //                 setShowUpdateButton(true)
+    //                 setIsLoading(false)
+    //             }
+    //         }
+    //     })()
+    // }, [])
+
     //get the individual appointments data from id  
     useEffect(() => {
         return (async() => {
             const sentAppointmentReq = await axios.get(`${baseUrl}/appointment/get/individual/${id}`, header) //sent the request to get the particular appointment details
             if (sentAppointmentReq.status == 202) {
-                 setIsLoading(false)
-                 setAppointment(sentAppointmentReq.data.data)
-                 setSuccesfulAppointment(true)
+                if (sentAppointmentReq.data.data.appointmentDetails.prescription != undefined){
+                    setIsLoading(false)
+                    setAppointment(sentAppointmentReq.data.data)
+                    setSuccesfulAppointment(true)
+                    setShowUpdateButton(true)
+                }else {
+                    setIsLoading(false)
+                    setAppointment(sentAppointmentReq.data.data)
+                    setSuccesfulAppointment(true)
+                    setShowUpdateButton(false)
+                }
             }else {
                 setIsLoading(false)
                 setSuccesfulAppointment(false)
@@ -106,8 +130,14 @@ const Appointment = () => {
                                                             &&
                                                             //doctor part 
                                                             <div className= {`text-center`}>
-                                                                <Link to = {`/doctor/yourAppointment/create/new?aptId=${id}&&ptId=${appointmentReqUserId}`} className = {`btn btn-primary me-1`} >Create Prescription</Link>
-                                                                <button className = {`btn btn-warning `} >Update Prescription</button>
+                                                                {
+                                                                    !showUpdateButton 
+                                                                    ?
+                                                                     <Link to = {`/doctor/yourAppointment/create/new?aptId=${id}&&ptId=${appointmentReqUserId}`} className = {`btn btn-primary me-1`} >Create Prescription</Link>
+                                                                     :
+                                                                     <Link to = {`/doctor/yourAppointment/update?aptId=${id}&&ptId=${appointmentReqUserId}`} className = {`btn btn-warning `} >Update Prescription</Link>
+                                                                }
+                                                                
                                                             </div> 
                                                         }
                                                     </>

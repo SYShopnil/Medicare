@@ -70,10 +70,16 @@ const Navbar = () => {
                 </ul>
               </li>
               {/* Dashboard dropdown    */}
-              <li class="nav-item dropdown">
+              <li class="nav-item ">
                 <Link
                   class="nav-link"
                   to =  "/dashboard"
+                  //  class="nav-link dropdown-toggle"
+                  // href="#"
+                  // id="navbarDarkDropdownMenuLink"
+                  // role="button"
+                  // data-bs-toggle="dropdown"
+                  // aria-expanded="false"
                   
                 >
                   Dashboard

@@ -4,20 +4,23 @@ import {useSelector} from 'react-redux'
 import axios from 'axios'
 import {baseUrl} from '../../../utils/baseUrl/baseurl'
 
-const CreatePrescription = () => {
+const Update = () => {
     const header = useSelector(state => state.login.headers)
     const location = useLocation()
     const [isLoading, setIsLoading] = useState(true)
     const history = useHistory()
     const initialState = {
-        medicineName: "",
-        amount: "",
-        duration: ""
+        data: {
+            medicineName: "",
+            amount: "",
+            duration: "",
+        },
+        index: ""
     }
     const [showUpdateButton, setShowUpdateButton] = useState(false)
     const [prescriptionData, setPrescriptionData] = useState([])
     const [currentData, setCurrentData] = useState(initialState)
-
+    console.log({currentData});
     if (location.search) {
         const arr = location.search.split("?")[1].split("&&")
         var patientUserId , appointmentId
@@ -51,14 +54,45 @@ const CreatePrescription = () => {
     //prescription add handler 
     const addHandler = (e) => {
         e.preventDefault();
-        setPrescriptionData([...prescriptionData, currentData ])
+        setPrescriptionData([...prescriptionData, currentData.data ])
+        setCurrentData(initialState)
+    }
+    // console.log({prescriptionData});
+
+    //appointment update handler
+    const updateHandler = (e, existData, index) => {
+        e.preventDefault()
+        const data = existData  //get the selected data 
+        setCurrentData({
+            index,
+            data: {
+                ...existData
+            }
+        })
+        setShowUpdateButton(true)
+    }
+
+    //update the exist data handler 
+    const updateExistHander = (e) => {
+        e.preventDefault()
+        const mainDataFile = [...prescriptionData]
+        mainDataFile[currentData.index] = currentData.data
+        setPrescriptionData(mainDataFile)
+        setShowUpdateButton(false)
         setCurrentData(initialState)
     }
 
+    //store the prescription data part 
+    useEffect (() => {
+        return (async () => {
+            const getExistingPrescriptionData = await axios.get(`${baseUrl}/appointment/get/individual/${appointmentId}`, header)
+            setPrescriptionData(getExistingPrescriptionData.data.data.appointmentDetails.prescription.prescriptionData)
+        })()
+    }, [])
     return (
         <div>
-           <div id="title" className="bg-success w-50 mt-5">
-                    <h1 className="text-center text-light">Create New Prescription</h1>
+           <div id="title" className="bg-warning w-50 mt-5">
+                    <h1 className="text-center text-waring">Update Existing Prescription</h1>
                 </div>
 
                 {/* prescriptionData add part */}
@@ -68,13 +102,13 @@ const CreatePrescription = () => {
                         <div class="form-group mb-2">
                             <input
                             type="text"
-                            value = {currentData.medicineName}
+                            value = {currentData.data.medicineName}
                             className="form-control"
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
                             placeholder="Medicine Name"
                             name = "medicineName"
-                            onChange={(e) => setCurrentData({...currentData, medicineName: e.target.value})}
+                            onChange={(e) => setCurrentData({...currentData, data: {...currentData.data, medicineName: e.target.value}})}
                             ></input>
                         </div>
 
@@ -82,32 +116,40 @@ const CreatePrescription = () => {
                         <div class="form-group mb-2">
                             <input
                             type="text"
-                            value = {currentData.amount}
+                            value = {currentData.data.amount}
                             className="form-control"
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
                             placeholder="Amount"
                             name = "amount"
-                            onChange={(e) => setCurrentData({...currentData, amount: e.target.value})}
+                            onChange={(e) => setCurrentData({...currentData, data: {...currentData.data, amount: e.target.value}})}
                             ></input>
                         </div>
 
                         {/* duration */}
                         <div class="form-group mb-2">
                             <input
-                            value = {currentData.duration}
+                            value = {currentData.data.duration}
                             type="text"
                             className="form-control"
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
                             placeholder="Duration"
                             name = "duration"
-                            onChange={(e) => setCurrentData({...currentData, duration: e.target.value})}
+                            onChange={(e) =>setCurrentData({...currentData, data: {...currentData.data, duration: e.target.value}})}
                             ></input>
                         </div>
 
-                        {/* add button */}
-                        <button class="btn btn-success"  onClick = {(e) => addHandler(e)}>Add</button>
+                        {
+                            showUpdateButton 
+                            ?
+                            //update button 
+                            <button class="btn btn-danger"  onClick = {(e) => updateExistHander(e)}>Update</button>
+                            :
+                            //add button
+                            <button class="btn btn-success"  onClick = {(e) => addHandler(e)}>Add</button>
+                        }
+                       
                     </form>
                 </div>
 
@@ -122,6 +164,7 @@ const CreatePrescription = () => {
                             <th scope="col">Medicine Name</th>
                             <th scope="col">Amount</th>
                             <th scope="col">Duration</th>
+                            <th scope="col">Edit</th>
                         </thead>
                         <tbody>
                             {prescriptionData.map((data, i) => (
@@ -130,6 +173,11 @@ const CreatePrescription = () => {
                                 <td>{data.medicineName}</td>
                                 <td>{data.amount}</td>
                                 <td>{data.duration}</td>
+                                <td>
+                                    <button 
+                                    className = {`btn btn-warning`}
+                                    onClick = {(e) => updateHandler(e,data, i)}>Update</button>
+                                </td>
                             </tr>
                             ))}
                         </tbody>
@@ -140,8 +188,8 @@ const CreatePrescription = () => {
                 {
                     prescriptionData.length != 0
                     &&
-                    <div>
-                        <button className = {`mx-5 btn btn-warning`} onClick={(e) => createPrescriptionController(e)}>Create new</button>
+                   <div>
+                        <button className = {`mx-5 btn btn-warning`} onClick={(e) => createPrescriptionController(e)}>Final Update</button>
                     </div>
                 }
           
@@ -149,4 +197,4 @@ const CreatePrescription = () => {
     );
 }
 
-export default CreatePrescription
+export default Update
