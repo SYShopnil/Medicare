@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { baseUrl } from "../../../utils/baseUrl/baseurl";
 import "./AddBlood.css";
 import AllBlood from "./AllBlood";
+import ApproveBlood from "./ApproveBlood";
 
 const AddBlood = () => {
   const { register, handleSubmit } = useForm();
@@ -58,7 +59,8 @@ const AddBlood = () => {
           <button class="btn btn-success">Submit</button>
         </form>
       </div>
-      <AllBlood isChange={isChange} setIsChange = {setIsChange}></AllBlood>
+      <AllBlood isChange={isChange} setIsChange={setIsChange}></AllBlood>
+      <ApproveBlood></ApproveBlood>
     </div>
   );
 };

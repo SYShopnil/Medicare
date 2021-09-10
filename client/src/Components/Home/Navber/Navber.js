@@ -5,10 +5,12 @@ import { logoutProcess } from "../../../redux/Authentication/actions/Action";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const { isLoggedIn, isLoading, loggedInUserData } = useSelector((state) => state.login);
+  const { isLoggedIn, isLoading, loggedInUserData } = useSelector(
+    (state) => state.login
+  );
   console.log({ isLoggedIn, loggedInUserData });
   const dispatch = useDispatch();
-  console.log({loggedInUserData, isLoggedIn, isLoading });
+  console.log({ loggedInUserData, isLoggedIn, isLoading });
 
   return (
     <div>
@@ -72,13 +74,18 @@ const Navbar = () => {
               {/* Dashboard dropdown    */}
               <li class="nav-item dropdown">
                 <Link
-                  class="nav-link"
-                  to =  "/dashboard"
-                  
+                  // class="nav-link"
+                  // to =  "/dashboard"
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDarkDropdownMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
                 >
                   Dashboard
                 </Link>
-                {/* <ul
+                <ul
                   class="dropdown-menu dropdown-menu-dark"
                   aria-labelledby="navbarDarkDropdownMenuLink"
                 >
@@ -97,7 +104,7 @@ const Navbar = () => {
                       Patient
                     </Link>
                   </li>
-                </ul> */}
+                </ul>
               </li>
               {/* doctor link  */}
 
@@ -134,7 +141,7 @@ const Navbar = () => {
               )}
               <li className="nav-item ms-1">
                 <p className="nav-link ">
-                  {!isLoading  && isLoggedIn &&  (
+                  {!isLoading && isLoggedIn && (
                     <li className="bg-success p-1">{`Hello!! ${loggedInUserData.data.personalInfo.firstName} ${loggedInUserData.data.personalInfo.lastName}`}</li>
                     // <li className="bg-success p-1">{`Hello!!`}</li>
                   )}
