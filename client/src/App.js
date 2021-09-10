@@ -55,7 +55,7 @@ function App({ checkLogin, loginInfo, loadUserSuccess, loadUserFailed }) {
             <Home></Home>
           </Route>
           <Route exact path="/doctor/show" component={ShowDoctorByCategory} />
-          <Route exact path="/login">
+          <Route exact path="/login" >
             <Login></Login>
           </Route>
           <PrivateRoute path="/doctor">
