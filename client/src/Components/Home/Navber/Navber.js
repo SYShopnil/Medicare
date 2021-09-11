@@ -5,10 +5,12 @@ import { logoutProcess } from "../../../redux/Authentication/actions/Action";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const { isLoggedIn, isLoading, loggedInUserData } = useSelector((state) => state.login);
+  const { isLoggedIn, isLoading, loggedInUserData } = useSelector(
+    (state) => state.login
+  );
   console.log({ isLoggedIn, loggedInUserData });
   const dispatch = useDispatch();
-  console.log({loggedInUserData, isLoggedIn, isLoading });
+  console.log({ loggedInUserData, isLoggedIn, isLoading });
 
   return (
     <div>

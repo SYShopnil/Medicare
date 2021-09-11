@@ -32,7 +32,7 @@ export default function ApproveOxygen() {
         `${baseUrl}/oxygenCylinder/get/all/unApproved/request`,
         header
       );
-      console.log(approvalData.data.data);
+      // console.log({approvalData});
       setunApprovalData(approvalData.data.data);
     })();
   }, [isChange]);

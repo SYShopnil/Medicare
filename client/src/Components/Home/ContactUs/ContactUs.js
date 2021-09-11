@@ -5,12 +5,15 @@ import "./ContactUs.css";
 function ContactUs() {
   return (
     <div className="contact">
+      {/* title part   */}
       <h1
         id="contact-title"
         className="bg-dark bg-gradient text-light p-5 text-center"
       >
         Contact Us
       </h1>
+
+      {/* form part  */}
       <div className="row mt-5">
         <div className="col-md-5 p-5 ">
           <form className="shadow-lg rounded p-5 bg-light">
@@ -60,6 +63,8 @@ function ContactUs() {
             </button>
           </form>
         </div>
+
+        {/* footer image    */}
         <div className="col-md-7 p-5">
           <img className="footerImg" src={contact} alt="" />
         </div>
