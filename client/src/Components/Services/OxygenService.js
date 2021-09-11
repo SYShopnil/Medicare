@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { baseUrl } from "../../utils/baseUrl/baseurl";
 import Navbar from "../Home/Navber/Navber";
 const OxygenService = () => {
-  const loginInfo = useSelector((state) => state.login.headers);
-  console.log(loginInfo);
+  const header = useSelector((state) => state.login.headers);
+  console.log(header);
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data, e) => {
     e.preventDefault();
@@ -32,10 +32,10 @@ const OxygenService = () => {
       const requestOxygenService = await axios.put(
         `${baseUrl}/oxygenCylinder/request/service`,
         requestOxygen,
-        loginInfo
+        header
       );
       console.log(requestOxygenService.data);
-      alert(requestOxygenService.data.message)
+      alert(requestOxygenService.data.message);
     }
   };
   return (
@@ -87,16 +87,6 @@ const OxygenService = () => {
             id="exampleInputEmail1"
             placeholder="amount"
           ></input>
-        </div>
-        {/* address  field   */}
-        <div class="form-group mb-2">
-          <textarea
-            type="text"
-            className="form-control"
-            {...register("address")}
-            id="exampleInputEmail1"
-            placeholder="your address"
-          ></textarea>
         </div>
 
         <input type="submit" className="btn btn-info text-light"></input>
