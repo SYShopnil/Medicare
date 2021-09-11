@@ -287,12 +287,11 @@ const deleteBloodBankServiceById = async (req, res) => {
 //blood service  approve  controller
 const bloodBankServiceRequestApproveController = async (req, res) => {
   try {
-    const { group, amount } = req.body; //get the data from body
-    const { id } = req.params; //get the blood request id from params
-    if (id) {
-      //of the service request id is exist then it will happen
-      if (group) {
-        //if the blood group exist then it will happen
+    const { group, amount} = req.body; //get the data from body
+    const {id} = req.params //get the blood request id from params 
+    // console.log(id);
+    if (id) { //of the service request id is exist then it will happen
+      if (group) { //if the blood group exist then it will happen
         //check that is this blood group object id is available or not
         const reduceAmount = +amount; //store and conver it to number
         const findBloodService = await BloodBankService.findOne({
@@ -323,7 +322,7 @@ const bloodBankServiceRequestApproveController = async (req, res) => {
             );
             if (findServiceAndReduceAmount.nModified != 0) {
               //delete the request
-              const findRequest = await BloodBankRequest.findOne(
+              const findRequest = await BloodBankRequest.updateOne (
                 {
                   _id: id,
                   "others.isDelete": false,

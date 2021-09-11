@@ -3,6 +3,7 @@ import {Link, useParams} from 'react-router-dom'
 import axios from 'axios'
 import {useSelector} from 'react-redux'
 import {baseUrl} from "../../utils/baseUrl/baseurl"
+import Prescription from '../../Components/PateintPanel/Prescription/Prescription'
 
 const Appointment = () => {
     const {id} = useParams() //get the appointment id 
@@ -11,6 +12,7 @@ const Appointment = () => {
     const [appointment, setAppointment] = useState({})
     const [succesfulAppointment, setSuccesfulAppointment] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
+    const [showUpdateButton, setShowUpdateButton] = useState(false)
     // console.log({appointment, succesfulAppointment});
 
     //check that is appointment data get or not
@@ -25,14 +27,37 @@ const Appointment = () => {
         var  {userType} = loginState.loggedInUserData.data
     }
 
+    // useEffect(() => {
+    //     return (async () => {
+    //         if (true) {
+    //             const appointmentData = await axios.get(`${baseUrl}/appointment/get/individual/${appointmentId}`, header)
+    //             if (appointmentData.data.data.appointmentDetails.prescription != undefined) {
+    //                 setShowUpdateButton(true)
+    //                 setIsLoading(false)
+    //             }else {
+    //                 setShowUpdateButton(true)
+    //                 setIsLoading(false)
+    //             }
+    //         }
+    //     })()
+    // }, [])
+
     //get the individual appointments data from id  
     useEffect(() => {
         return (async() => {
             const sentAppointmentReq = await axios.get(`${baseUrl}/appointment/get/individual/${id}`, header) //sent the request to get the particular appointment details
             if (sentAppointmentReq.status == 202) {
-                 setIsLoading(false)
-                 setAppointment(sentAppointmentReq.data.data)
-                 setSuccesfulAppointment(true)
+                if (sentAppointmentReq.data.data.appointmentDetails.prescription != undefined){
+                    setIsLoading(false)
+                    setAppointment(sentAppointmentReq.data.data)
+                    setSuccesfulAppointment(true)
+                    setShowUpdateButton(true)
+                }else {
+                    setIsLoading(false)
+                    setAppointment(sentAppointmentReq.data.data)
+                    setSuccesfulAppointment(true)
+                    setShowUpdateButton(false)
+                }
             }else {
                 setIsLoading(false)
                 setSuccesfulAppointment(false)
@@ -40,7 +65,7 @@ const Appointment = () => {
             }
         })()
     }, [])
-
+    // console.log({appointment});
    
     return (
         <div>   
@@ -97,7 +122,19 @@ const Appointment = () => {
                                                     ?
                                                     //patient part 
                                                     <div className= {`text-center`}>
-                                                        <button className = {`btn btn-danger me-1`} >Download Prescription</button>
+                                                        {/* <button className = {`btn btn-danger me-1`} >Download Prescription</button> */}
+                                                       {
+                                                           showUpdateButton 
+                                                           &&
+                                                            <Prescription
+                                                            doctorDetails = {appointment.appointmentDetails.doctorDetails}
+                                                            patientDetails = {appointment.patientDetails}
+                                                            prescriptionData = {appointment.appointmentDetails.prescription}
+                                                            appointmentDetails = {appointment.appointmentDetails}/>
+                                                       }
+
+                                                      
+                                                       
                                                     </div>
                                                     :
                                                     <>
@@ -106,8 +143,14 @@ const Appointment = () => {
                                                             &&
                                                             //doctor part 
                                                             <div className= {`text-center`}>
-                                                                <Link to = {`/doctor/yourAppointment/create/new?aptId=${id}&&ptId=${appointmentReqUserId}`} className = {`btn btn-primary me-1`} >Create Prescription</Link>
-                                                                <button className = {`btn btn-warning `} >Update Prescription</button>
+                                                                {
+                                                                    !showUpdateButton 
+                                                                    ?
+                                                                     <Link to = {`/doctor/yourAppointment/create/new?aptId=${id}&&ptId=${appointmentReqUserId}`} className = {`btn btn-primary me-1`} >Create Prescription</Link>
+                                                                     :
+                                                                     <Link to = {`/doctor/yourAppointment/update?aptId=${id}&&ptId=${appointmentReqUserId}`} className = {`btn btn-warning `} >Update Prescription</Link>
+                                                                }
+                                                                
                                                             </div> 
                                                         }
                                                     </>

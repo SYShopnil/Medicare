@@ -30,6 +30,7 @@ const BloodBankService = () => {
       header
     );
     console.log(bloodResponse);
+    alert(bloodResponse.data.message)
   };
 
   return (

@@ -6,22 +6,41 @@ import { baseUrl } from "../../../utils/baseUrl/baseurl.js";
 function ApproveAmbulance() {
   const [unApproveAmbulance, setUnApproveAmbulance] = useState([]);
   const header = useSelector((state) => state.login.headers);
+  const [isLoading, setIsLoading] = useState(true)
+  const [isChange, setIsChange] = useState(false)
+
+  //request approve handler 
+  const approveHandler = async(e, id) => {
+    e.preventDefault();
+    const sentApproveRequest = await axios.put(`${baseUrl}/ambulanceService/request/approved/${id}`, {}, header)
+    if (sentApproveRequest.status == 202) {
+      setIsChange(!isChange)
+    }
+  }
+
+  //to get all un approve request 
   useEffect(() => {
-    return async () => {
+    return (async () => {
       const approveAmbulance = await axios.get(
         `${baseUrl}/ambulanceService/get/all/unApproved/request`,
         header
       );
-      console.log(approveAmbulance.data.data);
+      console.log(approveAmbulance.data);
       setUnApproveAmbulance(approveAmbulance.data.data);
-    };
-  });
+      setIsLoading(false)
+    })();
+  }, [isChange]);
   return (
-    <div>
-      <h1>Request of Ambulance Service</h1>
-      <div>
+    <div className = {`mt-5`}>
+      <h1 className = {`bg-warning text-center text-light`}>Request of Ambulance Service</h1>
+      {
+        isLoading
+        ?
+        <h1>Loading...</h1>
+        :
+        <div>
         {unApproveAmbulance.length === 0 ? (
-          <h2>no new request</h2>
+          <h2 className = {` mt-4  p-3 bg-dark text-center text-light`}>No new request</h2>
         ) : (
           <>
             <table className="table table-bordered bg-dark table-striped p-3">
@@ -34,6 +53,7 @@ function ApproveAmbulance() {
                 <th scope="col">Email</th>
                 <th scope="col">Contact</th>
                 <th scope="col">Address</th>
+                <th scope="col">Approval Status</th>
               </thead>
               <tbody>
                 {unApproveAmbulance.map((value, i) => (
@@ -44,7 +64,7 @@ function ApproveAmbulance() {
                     <td>{value.requestUseInfo.contactInfo.contactNumber}</td>
                     <td>{value.requestUseInfo.contactInfo.address}</td>
                     <td>
-                      <button className="btn btn-danger">Approve</button>
+                    <button className="btn btn-danger" onClick = {(e) => approveHandler(e, value._id)}>Approve</button>
                     </td>
                   </tr>
                 ))}
@@ -53,6 +73,8 @@ function ApproveAmbulance() {
           </>
         )}
       </div>
+      }
+      
     </div>
   );
 }

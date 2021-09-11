@@ -12,12 +12,14 @@ const YourAppoinment = ({
   const [appointment, setApppointment] = useState([])
   const history = useHistory()
   const  {pathname} = useLocation()
+  const [appointmentId, setAppointmentId] = useState("")
   // console.log({appointment});
 
   //sent individual appointment data in another page 
   const appointmentDetailsHandler = (e, id) => {
     e.preventDefault();
     history.push(`${pathname}/details/${id}`)
+
   }
 
   //load the user's appointment
@@ -34,6 +36,8 @@ const YourAppoinment = ({
       }
     })()
   }, [])
+
+
   return (
     <>
       {

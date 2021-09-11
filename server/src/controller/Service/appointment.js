@@ -270,7 +270,7 @@ const getAppointmentByIdController = async (req, res) => {
                              -personalInfo.profileImage 
                              -personalInfo.sex 
                              -personalInfo.profileImage 
-                             -officialInfo -password 
+                            -password 
                              -recoveryToken 
                              -modificationInfo `
                 }

@@ -24,6 +24,7 @@ const AmbulanceService = () => {
       ambulanceData,
       header
     );
+    alert(ambulanceResponse.data.message)
     console.log(ambulanceResponse);
   };
 

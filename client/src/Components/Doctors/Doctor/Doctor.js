@@ -5,6 +5,7 @@ import Navbar from "../../Home/Navber/Navber";
 import DoctorNav from "../DoctorNav/DoctorNav";
 import CreatePrescription from "../Prescription/CreatePrescription";
 import Prescription from "../Prescription/Prescription";
+import Update from "../Prescription/Update";
 import YourAppoinment from "../YourAppoinment/YourAppoinment";
 
 const Doctor = () => {
@@ -24,6 +25,10 @@ const Doctor = () => {
 
             <Route exact path= {`${path}/yourAppointment/create/new`} >
               <CreatePrescription></CreatePrescription>
+            </Route>
+
+            <Route exact path= {`${path}/yourAppointment/update`} >
+              <Update></Update>
             </Route>
             
             <Route exact path= {`${path}/yourAppointment/details/:id`} >

@@ -20,6 +20,7 @@ const Login = ({ login, loginDispatch }) => {
     loginDispatch(loginData);
     console.log(loginData);
     e.target.reset();
+    history.push("/")
   };
 
   return (
@@ -59,9 +60,9 @@ const Login = ({ login, loginDispatch }) => {
           {/* login button  */}
           <button className="btn btn-outline-primary">login</button>
         </form>
-        <Link>
+        {/* <Link>
           <p>Forget your Password?</p>
-        </Link>
+        </Link> */}
 
         <p
           className="text-danger mt-2"
