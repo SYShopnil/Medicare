@@ -39,6 +39,7 @@ const MakeAnAppointment = ({
       closeModal()
     //   setIsChange(!isChange)
     }
+    alert(responseOfUpdate.data.message)
   }
   return (
     <div className= {`${modelStyleSheet.wrap}`} >

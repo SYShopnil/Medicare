@@ -99,7 +99,7 @@ function App({ checkLogin, loginInfo, loadUserSuccess, loadUserFailed }) {
 
 const mapStateToProps = (state) => {
   return {
-    loginInfo: state.login,
+    loginInfo: state.login
   };
 };
 

@@ -31,80 +31,153 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse " id="navbarNav">
             <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/appoinments">
-                  Appoinments
-                </Link>
-              </li>
+
+              {/* appoiuntment part */}
+              {
+                !isLoggedIn && !isLoading
+                ?
+                 <li className="nav-item">
+                  <Link className="nav-link" to="/appoinments">
+                    Appoinments
+                  </Link>
+                </li> 
+                :
+                <>
+                  {
+                     !isLoading
+                     &&
+                     <>
+                      {
+                        loggedInUserData.data.userType == "patient" 
+                        &&
+                        <>
+                           <Link className="nav-link" to="/appoinments">
+                              Appoinments
+                            </Link>
+                        </>
+                      }
+                     </>
+                  }
+                </>
+              }
               {/* services section  */}
-              <li class="nav-item dropdown">
-                <Link
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDarkDropdownMenuLink"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Our services
-                </Link>
-                <ul
-                  class="dropdown-menu dropdown-menu-dark"
-                  aria-labelledby="navbarDarkDropdownMenuLink"
-                >
-                  <li>
-                    <Link class="dropdown-item" to="bloodBank">
-                      Blood Bank
-                    </Link>
-                  </li>
-                  <li>
-                    <Link class="dropdown-item" to="/oxygenService">
-                      Oxygen Service
-                    </Link>
-                  </li>
-                  <li>
-                    <Link class="dropdown-item" to="/ambulanceService">
-                      Ambulance Service
-                    </Link>
-                  </li>
-                </ul>
-              </li>
+              {
+                !isLoggedIn && !isLoading
+                ?
+                <li class="nav-item dropdown">
+                  <Link
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDarkDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Our services
+                  </Link>
+                  <ul
+                    class="dropdown-menu dropdown-menu-dark"
+                    aria-labelledby="navbarDarkDropdownMenuLink"
+                  >
+                    <li>
+                      <Link class="dropdown-item" to="bloodBank">
+                        Blood Bank
+                      </Link>
+                    </li>
+                    <li>
+                      <Link class="dropdown-item" to="/oxygenService">
+                        Oxygen Service
+                      </Link>
+                    </li>
+                    <li>
+                      <Link class="dropdown-item" to="/ambulanceService">
+                        Ambulance Service
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+                :
+                <>
+                  {
+                    !isLoading
+                    &&
+                    <>
+                      {
+                        loggedInUserData.data.userType == "patient" 
+                    &&
+                    <li class="nav-item dropdown">
+                      <Link
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="navbarDarkDropdownMenuLink"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Our services
+                      </Link>
+                        <ul
+                          class="dropdown-menu dropdown-menu-dark"
+                          aria-labelledby="navbarDarkDropdownMenuLink"
+                        >
+                          <li>
+                            <Link class="dropdown-item" to="bloodBank">
+                              Blood Bank
+                            </Link>
+                          </li>
+                          <li>
+                            <Link class="dropdown-item" to="/oxygenService">
+                              Oxygen Service
+                            </Link>
+                          </li>
+                          <li>
+                            <Link class="dropdown-item" to="/ambulanceService">
+                              Ambulance Service
+                            </Link>
+                          </li>
+                        </ul>
+                      </li>
+                }
+                </>
+                      }
+                    </>
+                
+              }
+              
               {/* Dashboard dropdown    */}
-              <li class="nav-item ">
-                <Link
-                  class="nav-link"
-                  to =  "/dashboard"
-                  //  class="nav-link dropdown-toggle"
-                  // href="#"
-                  // id="navbarDarkDropdownMenuLink"
-                  // role="button"
-                  // data-bs-toggle="dropdown"
-                  // aria-expanded="false"
-                  
-                >
-                  Dashboard
-                </Link>
-                {/* <ul
-                  class="dropdown-menu dropdown-menu-dark"
-                  aria-labelledby="navbarDarkDropdownMenuLink"
-                >
-                  <li>
-                    <Link class="dropdown-item" to="/doctor">
-                      Doctor
-                    </Link>
-                  </li>
-                  <li>
-                    <Link class="dropdown-item" to="/admin">
-                      Admin
-                    </Link>
-                  </li>
-                  <li>
-                    <Link class="dropdown-item" to="/patientPanel">
-                      Patient
-                    </Link>
-                  </li>
-                </ul> */}
-              </li>
+               <li class="nav-item ">
+                  <Link
+                    class="nav-link"
+                    to =  "/dashboard"
+                    
+                    
+                  >
+                    Dashboard
+                  </Link>
+                  {/* <ul
+                    class="dropdown-menu dropdown-menu-dark"
+                    aria-labelledby="navbarDarkDropdownMenuLink"
+                  >
+                    <li>
+                      <Link class="dropdown-item" to="/doctor">
+                        Doctor
+                      </Link>
+                    </li>
+                    <li>
+                      <Link class="dropdown-item" to="/admin">
+                        Admin
+                      </Link>
+                    </li>
+                    <li>
+                      <Link class="dropdown-item" to="/patientPanel">
+                        Patient
+                      </Link>
+                    </li>
+                  </ul> */}
+                </li>
+              
+                          
+             
               {/* doctor link  */}
 
               {/* <li className="nav-item">
@@ -122,6 +195,16 @@ const Navbar = () => {
                   Patient
                 </Link>
               </li> */}
+
+              {/* show the logged in user */}
+               <li className="nav-item ms-1">
+                <p className="nav-link ">
+                  {!isLoading  && isLoggedIn &&  (
+                    <li className="bg-success p-1">{`Hello!! ${loggedInUserData.data.personalInfo.firstName} ${loggedInUserData.data.personalInfo.lastName}`}</li>
+                    // <li className="bg-success p-1">{`Hello!!`}</li>
+                  )}
+                </p>
+              </li>
               {!isLoggedIn ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
@@ -138,14 +221,7 @@ const Navbar = () => {
                   </Link>
                 </li>
               )}
-              <li className="nav-item ms-1">
-                <p className="nav-link ">
-                  {!isLoading  && isLoggedIn &&  (
-                    <li className="bg-success p-1">{`Hello!! ${loggedInUserData.data.personalInfo.firstName} ${loggedInUserData.data.personalInfo.lastName}`}</li>
-                    // <li className="bg-success p-1">{`Hello!!`}</li>
-                  )}
-                </p>
-              </li>
+             
             </ul>
           </div>
         </div>

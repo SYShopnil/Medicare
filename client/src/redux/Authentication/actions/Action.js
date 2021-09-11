@@ -60,11 +60,14 @@ export const loginProcess = (formData) => async (dispatch, getState) => {
       );
       if (storeData.status == 202) {
         dispatch(loginUserData(storeData.data));
+        alert(loginData.data.message)
       } else {
         dispatch(loginUserFailed());
+        alert(loginData.data.message)
       }
     } else {
       dispatch(loginUnsuccessful());
+       alert(loginData.data.message)
     }
   } catch (error) {
     dispatch(loginUnsuccessful());

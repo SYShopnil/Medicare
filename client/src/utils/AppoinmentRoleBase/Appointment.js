@@ -3,6 +3,7 @@ import {Link, useParams} from 'react-router-dom'
 import axios from 'axios'
 import {useSelector} from 'react-redux'
 import {baseUrl} from "../../utils/baseUrl/baseurl"
+import Prescription from '../../Components/PateintPanel/Prescription/Prescription'
 
 const Appointment = () => {
     const {id} = useParams() //get the appointment id 
@@ -64,7 +65,7 @@ const Appointment = () => {
             }
         })()
     }, [])
-
+    // console.log({appointment});
    
     return (
         <div>   
@@ -121,7 +122,19 @@ const Appointment = () => {
                                                     ?
                                                     //patient part 
                                                     <div className= {`text-center`}>
-                                                        <button className = {`btn btn-danger me-1`} >Download Prescription</button>
+                                                        {/* <button className = {`btn btn-danger me-1`} >Download Prescription</button> */}
+                                                       {
+                                                           showUpdateButton 
+                                                           &&
+                                                            <Prescription
+                                                            doctorDetails = {appointment.appointmentDetails.doctorDetails}
+                                                            patientDetails = {appointment.patientDetails}
+                                                            prescriptionData = {appointment.appointmentDetails.prescription}
+                                                            appointmentDetails = {appointment.appointmentDetails}/>
+                                                       }
+
+                                                      
+                                                       
                                                     </div>
                                                     :
                                                     <>

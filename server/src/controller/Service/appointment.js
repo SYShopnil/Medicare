@@ -270,7 +270,7 @@ const getAppointmentByIdController = async (req, res) => {
                              -personalInfo.profileImage 
                              -personalInfo.sex 
                              -personalInfo.profileImage 
-                             -officialInfo -password 
+                            -password 
                              -recoveryToken 
                              -modificationInfo `
                 }
@@ -284,7 +284,7 @@ const getAppointmentByIdController = async (req, res) => {
                         -modificationInfo`
             }).populate({
                 path: "appointmentDetails.prescription",
-                select: "prescriptionData other -_id",
+                select: "prescriptionData",
                 populate: {
                     path: "doctorInfo",
                     select: "_id"

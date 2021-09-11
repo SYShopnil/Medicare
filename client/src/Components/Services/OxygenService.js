@@ -35,6 +35,7 @@ const OxygenService = () => {
         loginInfo
       );
       console.log(requestOxygenService.data);
+      alert(requestOxygenService.data.message)
     }
   };
   return (

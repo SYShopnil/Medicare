@@ -7,6 +7,7 @@ import {baseUrl} from '../../../utils/baseUrl/baseurl'
 const Update = () => {
     const header = useSelector(state => state.login.headers)
     const location = useLocation()
+    const [prescriptionId, setPrescriptionId] = useState("")
     const [isLoading, setIsLoading] = useState(true)
     const history = useHistory()
     const initialState = {
@@ -34,21 +35,19 @@ const Update = () => {
     }
     //  console.log({patientId, appointmentId})
  
-    //create a new prescription handler 
-    const createPrescriptionController = async (e) => {
+    //update final  a exist prescription handler 
+    const finalUpdateHandler = async (e) => {
         e.preventDefault() ; 
-        const body = {
-            appointmentId,
-            patientUserId,
+        const body =  {
             prescriptionData
         }
         // console.log(body)
-        const sentNewPrescriptionCreateReq = await axios.post(`${baseUrl}/prescription/create`, body, header)
-        if (sentNewPrescriptionCreateReq.status == 201) {
-            alert(sentNewPrescriptionCreateReq.data.message);
+        const setUpdatePrescriptionReq = await axios.put(`${baseUrl}/prescription/update/information/${prescriptionId}`, body, header)
+        if (setUpdatePrescriptionReq.status == 202) {
+            alert(setUpdatePrescriptionReq.data.message);
             history.push(`/doctor/yourAppointment`)
         }else {
-            alert(sentNewPrescriptionCreateReq.data.message);
+            alert(setUpdatePrescriptionReq.data.message);
         }
     }
     //prescription add handler 
@@ -86,7 +85,9 @@ const Update = () => {
     useEffect (() => {
         return (async () => {
             const getExistingPrescriptionData = await axios.get(`${baseUrl}/appointment/get/individual/${appointmentId}`, header)
+            // console.log(getExistingPrescriptionData);
             setPrescriptionData(getExistingPrescriptionData.data.data.appointmentDetails.prescription.prescriptionData)
+            setPrescriptionId(getExistingPrescriptionData.data.data.appointmentDetails.prescription._id)
         })()
     }, [])
     return (
@@ -189,7 +190,7 @@ const Update = () => {
                     prescriptionData.length != 0
                     &&
                    <div>
-                        <button className = {`mx-5 btn btn-warning`} onClick={(e) => createPrescriptionController(e)}>Final Update</button>
+                        <button className = {`mx-5 btn btn-warning`} onClick={(e) => finalUpdateHandler(e)}>Final Update</button>
                     </div>
                 }
           

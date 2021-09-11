@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { baseUrl } from "../../../utils/baseUrl/baseurl";
 import "./AddAmbulance.css";
 import AllAmbulance from "./AllAmbulance.js/AllAmbulance";
+import ApproveAmbulance from "./ApproveAmbulance";
 
 const AddAmbulance = () => {
   const header = useSelector((state) => state.login.headers);
@@ -81,6 +82,7 @@ const AddAmbulance = () => {
         isChange={isChange}
         setIsChange={setIsChange}
       ></AllAmbulance>
+      <ApproveAmbulance></ApproveAmbulance>
     </div>
   );
 };

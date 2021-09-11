@@ -16,6 +16,10 @@ const ambulanceServiceRequestSchema = new Schema({
             contactNumber : {
                 type: String,
                 required: true,
+            },
+            address: {
+                type: String,
+                required: true
             }
         },
         reqUserInfo : {
