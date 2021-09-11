@@ -1,9 +1,8 @@
 import React from "react";
 import { BsCardChecklist } from "react-icons/bs";
-import { GiMedicinePills } from "react-icons/gi";
 import { Link } from "react-router-dom";
 
-const PatientNav = ({url}) => {
+const PatientNav = ({ url }) => {
   // console.log(url);
   return (
     <div>
@@ -13,17 +12,17 @@ const PatientNav = ({url}) => {
         </h1>
 
         <li className="nav-item mb-2">
-          <Link className="nav-link" to= {`${url}/patientAppointments`}>
+          <Link className="nav-link" to={`${url}/patientAppointments`}>
             <BsCardChecklist className="link" />
             <p className="item">Your Appointments</p>
           </Link>
         </li>
-        <li className="nav-item mb-2">
+        {/* <li className="nav-item mb-2">
           <Link className="nav-link" to= {`${url}/prescription`}>
             <GiMedicinePills className="link" />
             <p className="item">Download Prescription</p>
           </Link>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

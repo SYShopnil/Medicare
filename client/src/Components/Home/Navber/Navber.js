@@ -33,39 +33,30 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse " id="navbarNav">
             <ul className="navbar-nav ms-auto">
-
               {/* appoiuntment part */}
-              {
-                !isLoggedIn && !isLoading
-                ?
-                 <li className="nav-item">
+              {!isLoggedIn ? (
+                <li className="nav-item">
                   <Link className="nav-link" to="/appoinments">
                     Appoinments
                   </Link>
-                </li> 
-                :
+                </li>
+              ) : (
                 <>
-                  {
-                     !isLoading
-                     &&
-                     <>
-                      {
-                        loggedInUserData.data.userType == "patient" 
-                        &&
+                  {!isLoading && (
+                    <>
+                      {loggedInUserData.data.userType == "patient" && (
                         <>
-                           <Link className="nav-link" to="/appoinments">
-                              Appoinments
-                            </Link>
+                          <Link className="nav-link" to="/appoinments">
+                            Appoinments
+                          </Link>
                         </>
-                      }
-                     </>
-                  }
+                      )}
+                    </>
+                  )}
                 </>
-              }
+              )}
               {/* services section  */}
-              {
-                !isLoggedIn && !isLoading
-                ?
+              {!isLoggedIn ? (
                 <li class="nav-item dropdown">
                   <Link
                     class="nav-link dropdown-toggle"
@@ -98,65 +89,58 @@ const Navbar = () => {
                     </li>
                   </ul>
                 </li>
-                :
+              ) : (
                 <>
-                  {
-                    !isLoading
-                    &&
+                  {!isLoading && (
                     <>
-                      {
-                        loggedInUserData.data.userType == "patient" 
-                    &&
-                    <li class="nav-item dropdown">
-                      <Link
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        id="navbarDarkDropdownMenuLink"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Our services
-                      </Link>
-                        <ul
-                          class="dropdown-menu dropdown-menu-dark"
-                          aria-labelledby="navbarDarkDropdownMenuLink"
-                        >
-                          <li>
-                            <Link class="dropdown-item" to="bloodBank">
-                              Blood Bank
-                            </Link>
-                          </li>
-                          <li>
-                            <Link class="dropdown-item" to="/oxygenService">
-                              Oxygen Service
-                            </Link>
-                          </li>
-                          <li>
-                            <Link class="dropdown-item" to="/ambulanceService">
-                              Ambulance Service
-                            </Link>
-                          </li>
-                        </ul>
-                      </li>
-                }
-                </>
-                      }
+                      {loggedInUserData.data.userType == "patient" && (
+                        <li class="nav-item dropdown">
+                          <Link
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            id="navbarDarkDropdownMenuLink"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            Our services
+                          </Link>
+                          <ul
+                            class="dropdown-menu dropdown-menu-dark"
+                            aria-labelledby="navbarDarkDropdownMenuLink"
+                          >
+                            <li>
+                              <Link class="dropdown-item" to="bloodBank">
+                                Blood Bank
+                              </Link>
+                            </li>
+                            <li>
+                              <Link class="dropdown-item" to="/oxygenService">
+                                Oxygen Service
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                class="dropdown-item"
+                                to="/ambulanceService"
+                              >
+                                Ambulance Service
+                              </Link>
+                            </li>
+                          </ul>
+                        </li>
+                      )}
                     </>
-                
-              }
-              
+                  )}
+                </>
+              )}
+
               {/* Dashboard dropdown    */}
-               <li class="nav-item ">
-                  <Link
-                    class="nav-link"
-                    to =  "/dashboard"
-                    
-                    
-                  >
-                    Dashboard
-                  </Link>
-                  {/* <ul
+              <li class="nav-item ">
+                <Link class="nav-link" to="/dashboard">
+                  Dashboard
+                </Link>
+                {/* <ul
                     class="dropdown-menu dropdown-menu-dark"
                     aria-labelledby="navbarDarkDropdownMenuLink"
                   >
@@ -176,10 +160,8 @@ const Navbar = () => {
                       </Link>
                     </li>
                   </ul> */}
-                </li>
-              
-                          
-             
+              </li>
+
               {/* doctor link  */}
 
               {/* <li className="nav-item">
@@ -199,9 +181,9 @@ const Navbar = () => {
               </li> */}
 
               {/* show the logged in user */}
-               <li className="nav-item ms-1">
+              <li className="nav-item ms-1">
                 <p className="nav-link ">
-                  {!isLoading  && isLoggedIn &&  (
+                  {!isLoading && isLoggedIn && (
                     <li className="bg-success p-1">{`Hello!! ${loggedInUserData.data.personalInfo.firstName} ${loggedInUserData.data.personalInfo.lastName}`}</li>
                     // <li className="bg-success p-1">{`Hello!!`}</li>
                   )}
@@ -223,7 +205,6 @@ const Navbar = () => {
                   </Link>
                 </li>
               )}
-             
             </ul>
           </div>
         </div>
